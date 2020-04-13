@@ -1,0 +1,31 @@
+{
+  "name": "helloapp",
+  "version": "1.0.0",
+  "description": "First Angular 9 Project",
+  "author": "Eugene Popov metanit.com",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "~9.0.0",
+    "@angular/compiler": "~9.0.0",
+    "@angular/core": "~9.0.0",
+    "@angular/forms": "~9.0.0",
+    "@angular/platform-browser": "~9.0.0",
+    "@angular/platform-browser-dynamic": "~9.0.0",
+    "@angular/router": "~9.0.0",
+    "@aspnet/signalr": "^1.1.4",
+    "cors": "^2.8.5",
+    "rxjs": "~6.5.4",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.900.1",
+    "@angular/cli": "~9.0.1",
+    "@angular/compiler-cli": "~9.0.0",
+    "@types/node": "^12.11.1",
+    "typescript": "~3.7.5"
+  }
+}

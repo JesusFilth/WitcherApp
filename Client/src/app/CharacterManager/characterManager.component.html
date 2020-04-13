@@ -1,0 +1,82 @@
+<div class="all_content">
+    <!--профиль-->
+    <div class="py-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card"> <img class="your_avatar" [src]="pathAvatarImg">
+                        <div class="card-body">
+                            <h4 class="card-title">{{user.name}}</h4>
+                            <a href="#" class="btn btn-primary">Редактировать профиль</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--скилл-->
+    <div class="py-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header"> Победы</div>
+                        <div class="card-body">
+                            <h4>Кол-во</h4>
+                            <p>{{user.winCount}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header"> Деньги</div>
+                        <div class="card-body">
+                            <h4>Кол-во</h4>
+                            <p>{{user.gold}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--френды-->
+    <div class="friends_list">
+        <h1 class="name_item">Друзья</h1>
+        <div *ngFor ="let fr of user.friends">
+            <div id="frend_card" class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img [src]="pathFriendImg" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{fr.name}}</h5>
+                            <p class="card-text"><small class="text-muted">{{fr.lastTimeOnline}}</small></p>
+                            <a class="btn btn-primary" href="#">Пригласить на бой</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    <!--кнопка играть-->
+    <div class="container">
+        <div class="row">
+            <div class="bt-wrapper gold">
+                <a class="bt-button gold" (click)="ToGameSearch()">
+                    <span class="bt-border gold">
+                        <span class="bt-text gold">
+                            Играть
+                        </span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

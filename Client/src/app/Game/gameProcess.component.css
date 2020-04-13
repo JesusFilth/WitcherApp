@@ -1,0 +1,267 @@
+.friends_list {
+    position: absolute;
+    right: 0;
+    max-width: 50% !important;
+    top: 1%;
+    width: 500px;
+    height: 70%;
+    overflow: auto;
+    border-radius: 5px;
+    background: #232526;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #414345, #232526);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #414345, #232526);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.py-5 {
+    padding-top: 1rem !important;
+}
+
+.your_avatar {
+    width: 100%;
+    height: 150px;
+}
+
+.game-mode {
+    background-image: url(../../assets/images/stol.jpg);
+    color: white !important;
+    background-size: 100%;
+}
+
+.card {
+    margin: 2%;
+    background: #0f0c29;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-header {
+    background: #232526;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #414345, #232526);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #414345, #232526);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.name_item {
+    color: white;
+    margin-left: 35%;
+}
+
+.btn-primary {
+    background-color: #d8be52;
+    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
+    box-shadow: 0px 2px 6px 0px #362c26;
+    border-radius: 2px;
+    border: solid 3px #795548;
+}
+
+.btn-primary:hover {
+    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
+}
+
+.bt-wrapper {
+    cursor: pointer;
+    width: 200px;
+    padding: 0 2px;
+    border-right: none;
+    border-left: none;
+    box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.35);
+    border-radius: 5px;
+}
+
+.bt-button {
+    display: block;
+    text-align: center;
+    border-radius: 2px;
+    border: solid 3px #795548;
+}
+
+.bt-text {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    padding: 9px 24px;
+    padding: 0.6rem 1.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 0 0 4px #000, 0 0 8px #000;
+    font-size: 20px;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+}
+
+.bt-border {
+    display: table;
+    padding: 3px;
+    border-radius: 2px;
+    height: 35px;
+    min-height: 35px;
+    width: 100%;
+    /* Font style */
+    text-transform: uppercase;
+    font-family: 'Fondamento', cursive;
+    font-weight: normal;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px #000;
+    font-size: 17px;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.bt-wrapper.gold {
+    background-color: #d8be52;
+    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
+    border-top: 2px solid #d8be52;
+    border-bottom: 2px solid #1c140d;
+    position: absolute;
+    right: 5%;
+    top: 80%;
+}
+
+.bt-button.gold {
+    background: linear-gradient(to bottom, #6f5742, #81615d);
+}
+
+.bt-text.gold {
+    background: radial-gradient(circle, #edca37 25%, #a77d33 75%, #5f3f1d);
+}
+
+.bt-border.gold {
+    background-color: #a77d33;
+    box-shadow: 0px 2px 6px 0px #362c26;
+    background: linear-gradient(to bottom, #d8be52, #d5b631 5%, #5f3f1d 59%, #362c26);
+}
+
+.bt-border:hover .bt-text.gold {
+    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
+}
+
+.right-block-users {
+    background-image: url("../../assets/images/wood.jpg");
+    overflow-y: auto;
+    max-height: 700px;
+}
+
+.doska-game {
+    padding: 0 !important;
+}
+
+.first-face {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.second-face {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.second-face .pip:nth-of-type(2) {
+    align-self: flex-end;
+}
+
+.third-face {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.third-face .pip:nth-of-type(2) {
+    align-self: center;
+}
+
+.third-face .pip:nth-of-type(3) {
+    align-self: flex-end;
+}
+
+.fourth-face,
+.sixth-face {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.fourth-face .column,
+.sixth-face .column {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.fifth-face {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.fifth-face .column {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.fifth-face .column:nth-of-type(2) {
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.kosti-round {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    vertical-align: center;
+    flex-wrap: wrap;
+    align-content: center;
+    background: transparent;
+}
+
+[class$="face"] {
+    margin: 16px;
+    padding: 4px;
+    background-color: #e7e7e7;
+    width: 104px;
+    height: 104px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    box-shadow: inset 0 5px white, inset 0 -5px #bbb, inset 5px 0 #d7d7d7, inset -5px 0 #d7d7d7;
+    border-radius: 10%;
+}
+
+.pip {
+    display: block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 4px;
+    background-color: #333;
+    box-shadow: inset 0 3px #111, inset 0 -3px #555;
+}
