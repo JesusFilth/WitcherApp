@@ -11,14 +11,14 @@ export class DataServer{
     constructor(private http:HttpClient){}
 
     logIn(login:Login){
-        return this.http.post(this.urlToNodeJs+"/login", login);
+        return this.http.post(this.urlToAsp+"/login", login);
+        //if ok. return User
     }
     gameSearch(name:string){
-        return this.http.post(this.urlToNodeJs+"/GameSearch",name);
+        return this.http.post(this.urlToAsp+"/GameSearch",name);
+        //if ok. return Enemy
     }
-
-    
-   // timer(){
-    //    return this.http.get(this.url+"/timer");
-   // }
+    rollCubes(){
+        return this.http.get(this.urlToAsp+"/rollCubes");
+    }
 }

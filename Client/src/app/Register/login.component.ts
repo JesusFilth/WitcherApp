@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {DataServer} from '../data.server';
 import {Login} from '../../models/Login';
 import {User} from '../../models/User';
-import { stringify } from 'querystring';
 
 @Component ({
     selector: 'app-login',

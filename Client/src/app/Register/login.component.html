@@ -1,9 +1,11 @@
-<div>
-    <form id="slick-login">
-		<label for="username">Логин:</label><input type="text" [(ngModel)]="login.mail" name="login" class="placeholder" placeholder="admin@example.com">
-		<label for="password">Пароль:</label><input type="password" [(ngModel)]="login.password" name="password" class="placeholder" placeholder="Сложный пароль...">   
-
-        <button class="btn btn-success reg-btn-enter" (click)="goToPersonManager()">ВОЙТИ</button>
-        <button class="btn btn-primary reg-btn-enter" (click)="goToRegister()">Зарегестрироваться</button>
+<div class="login-content">
+  <div>
+    <form id="slick-login" class="login-form">
+      <label for="username">Логин:</label><input type="text" [(ngModel)]="login.mail" name="login" class="placeholder" placeholder="admin@example.com">
+      <label for="password">Пароль:</label><input type="password" [(ngModel)]="login.password" name="password" class="placeholder" placeholder="Сложный пароль...">   
+		
+        <button class="btn btn-success reg-btn-enter login-btn" (click)="goToPersonManager()">ВОЙТИ</button>
+        <button class="btn btn-primary reg-btn-enter login-btn" (click)="goToRegister()">Зарегестрироваться</button>
   </form>	
+  </div> 
 </div>

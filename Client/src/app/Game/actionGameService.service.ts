@@ -1,10 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { Message } from './message';
 
 @Injectable()
-export class ChatService {
-  messageReceived = new EventEmitter<Message>();
+export class ActionGameService {
+  messageReceived = new EventEmitter<any>();
+  rollCubesReceived = new EventEmitter<any>();
   connectionEstablished = new EventEmitter<Boolean>();
 
   private connectionIsEstablished = false;
@@ -16,13 +16,19 @@ export class ChatService {
     this.startConnection();
   }
 
-  sendMessage(message: string) {
-    this._hubConnection.invoke('NewMessage', message);
+  Send_upBet(gold:string) {
+     this._hubConnection.invoke('UpBet', gold);
+  }
+  Send_rollCubes(count:number, index?:Array<number>){
+    this._hubConnection.invoke('RollCubes',count,index);
+  }
+  Send_acceptBet(){
+    this._hubConnection.invoke('AcceptBet');
   }
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:6161")
+      .withUrl("https://localhost:44398/MessageHub")
       .build();
   }
 
@@ -36,13 +42,16 @@ export class ChatService {
       })
       .catch(err => {
         console.log('Error while establishing connection, retrying...');
-        setTimeout(function () { this.startConnection(); }, 5000);
+        setTimeout(function () { this.startConnection(); }, 20000);
       });
   }
 
   private registerOnServerEvents(): void {
     this._hubConnection.on('MessageReceived', (data: any) => {
       this.messageReceived.emit(data);
+    });
+    this._hubConnection.on('RollCubesReceived', (data: any) => {
+      this.rollCubesReceived.emit(data);
     });
   }
 }  
