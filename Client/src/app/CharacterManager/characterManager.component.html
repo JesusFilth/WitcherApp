@@ -1,81 +1,128 @@
 <div class="all_content">
-    <!--профиль-->
-    <div class="py-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card"> <img class="your_avatar" [src]="pathAvatarImg">
-                        <div class="card-body">
-                            <h4 class="card-title">{{user.name}}</h4>
-                            <a href="#" class="btn btn-primary">Редактировать профиль</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="profil-info-content">
+        <div class="img-person-border">
+            <img class="img-profil" alt="profil" src="../../assets/images/jesus.jpeg">
+        </div>
+        <div class="setting-and-rang">
+            <button class="setting-btn"><img class="img-setting" alt="Setting prifil"
+                    src="../../assets/images/setting.png"></button>
+            <div class="rang-div">
+                <img class="img-rang" alt="rang" src="../../assets/images/rang.png">
+                <h6 class="rang-number">20</h6>
+            </div>
+        </div>
+        <div class="name-person">
+            <img alt="name" class="img-name-panel" src="../../assets/images/name-panel.png">
+            <h6 class="name-text">JesusFilth</h6>
+        </div>
+        <div class="texts-panel-content">
+            <div class="text-panel">
+                <h5 class="text-in-panel">Победы : 666</h5>
+            </div>
+            <div class="text-panel">
+                <h5 class="text-in-panel">Золото : 2500</h5>
             </div>
         </div>
     </div>
-    <!--скилл-->
-    <div class="py-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header"> Победы</div>
-                        <div class="card-body">
-                            <h4>Кол-во</h4>
-                            <p>{{user.winCount}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="middle-content">
+        <div class="reg-game-button-div">
+            <button class="reg-game-button">
+                <img class="img-reg-game-button" alt="To Game" src="../../assets/images/fight-button.png">
+            </button>
+        </div>
+        <div class="Chat-content">
+            <h2 style="padding-top: 10%; padding-left: 7%;">this.will.be.chat.motherfuckaaaa</h2>
         </div>
     </div>
-    <div class="py-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header"> Деньги</div>
-                        <div class="card-body">
-                            <h4>Кол-во</h4>
-                            <p>{{user.gold}}</p>
+    <div class="right-content">
+        <div class="friend-panel">
+            <div class="friends-content">
+                <img class="img-friend-text" alt="nostalgij vechna" src="../../assets/images/friend-text.png">
+
+                <!--friends-->
+                <div class="friend">
+                    <div class="friend-ramka"><img class="img-friend" src="../../assets/images/default-friend.jpg">
+                    </div>
+                    <div class="friend-content-panel">
+                        <div class="friend-up-content-panel">
+                            <div class="friend-rang">
+                                <img class="img-friend-rang" src="../../assets/images/rang.png">
+                                <h6 class="friend-rang-number">20</h6>
+                            </div>
+                            <div class="text-name-panel">
+                                <label class="text-name-label">Валерон</label>
+                            </div>
+                            <div class="delete-button-panel">
+                                <button class="friend-delete-button"><img alt="delete" class="img-friend-delete"
+                                        src="../../assets/images/delete-button.png"></button>
+                            </div>
+                        </div>
+                        <div class="friend-down-content-panel">
+                            <div class="online-friend-panel"><img class="img-online-cercle"
+                                    src="../../assets/images/online-circle.png"></div>
+                            <button class="To-fight-frind-btn"><img alt="Дуэль" class="img-to-fight-btn"
+                                    src="../../assets/images/to-fight-friend-button.png"></button>
+                            <button class="To-write-frind-btn"><img alt="Написать" class="img-to-write-btn"
+                                    src="../../assets/images/write-friend.png"></button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!--френды-->
-    <div class="friends_list">
-        <h1 class="name_item">Друзья</h1>
-        <div *ngFor ="let fr of user.friends">
-            <div id="frend_card" class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img [src]="pathFriendImg" class="card-img" alt="...">
+                <!--2 friend-->
+                <div class="friend">
+                    <div class="friend-ramka"><img class="img-friend" src="../../assets/images/default-friend.jpg">
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{fr.name}}</h5>
-                            <p class="card-text"><small class="text-muted">{{fr.lastTimeOnline}}</small></p>
-                            <a class="btn btn-primary" href="#">Пригласить на бой</a>
+                    <div class="friend-content-panel">
+                        <div class="friend-up-content-panel">
+                            <div class="friend-rang">
+                                <img class="img-friend-rang" src="../../assets/images/rang.png">
+                                <h6 class="friend-rang-number">19</h6>
+                            </div>
+                            <div class="text-name-panel">
+                                <label class="text-name-label">Li</label>
+                            </div>
+                            <div class="delete-button-panel">
+                                <button class="friend-delete-button"><img alt="delete" class="img-friend-delete"
+                                        src="../../assets/images/delete-button.png"></button>
+                            </div>
+                        </div>
+                        <div class="friend-down-content-panel">
+                            <div class="online-friend-panel"><img class="img-online-cercle"
+                                    src="../../assets/images/offline-circle.png"></div>
+                            <button class="To-fight-frind-btn"><img alt="Дуэль" class="img-to-fight-btn"
+                                    src="../../assets/images/to-fight-friend-button.png"></button>
+                            <button class="To-write-frind-btn"><img alt="Написать" class="img-to-write-btn"
+                                    src="../../assets/images/write-friend.png"></button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>   
-    </div>
-    <!--кнопка играть-->
-    <div class="container">
-        <div class="row">
-            <div class="bt-wrapper gold">
-                <a class="bt-button gold" (click)="ToGameSearch()">
-                    <span class="bt-border gold">
-                        <span class="bt-text gold">
-                            Играть
-                        </span>
-                    </span>
-                </a>
+                <!--3 friend-->
+                <div class="friend">
+                    <div class="friend-ramka"><img class="img-friend" src="../../assets/images/default-friend.jpg">
+                    </div>
+                    <div class="friend-content-panel">
+                        <div class="friend-up-content-panel">
+                            <div class="friend-rang">
+                                <img class="img-friend-rang" src="../../assets/images/rang.png">
+                                <h6 class="friend-rang-number">19</h6>
+                            </div>
+                            <div class="text-name-panel">
+                                <label class="text-name-label">Бережок</label>
+                            </div>
+                            <div class="delete-button-panel">
+                                <button class="friend-delete-button"><img alt="delete" class="img-friend-delete"
+                                        src="../../assets/images/delete-button.png"></button>
+                            </div>
+                        </div>
+                        <div class="friend-down-content-panel">
+                            <div class="online-friend-panel"><img class="img-online-cercle"
+                                    src="../../assets/images/online-circle.png"></div>
+                            <button class="To-fight-frind-btn"><img alt="Дуэль" class="img-to-fight-btn"
+                                    src="../../assets/images/to-fight-friend-button.png"></button>
+                            <button class="To-write-frind-btn"><img alt="Написать" class="img-to-write-btn"
+                                    src="../../assets/images/write-friend.png"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

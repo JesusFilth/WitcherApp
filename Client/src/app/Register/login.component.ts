@@ -16,6 +16,9 @@ export class LoginComponent{
     login:Login = new Login();
     user:User = new User();
 
+    imgEnter: any = require("../../assets/images/Enter-button.png");
+    imgReg: any = require("../../assets/images/reg-button.png");
+
     constructor(private router:Router, private dataServer:DataServer){}
 
     goToPersonManager(){
@@ -27,7 +30,7 @@ export class LoginComponent{
         },error=>{console.log('error -> login -> go to person manager')});
     }
     goToRegister(){
-        //this.router.navigate(['/Register']);
+        this.router.navigate(['/Register']);
         //this.dataServer.timer().subscribe((data:string)=>{console.log(data)})
     }
 }

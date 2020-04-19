@@ -1,149 +1,288 @@
-.friends_list {
+.all_content{
+    background-image: url(../../assets/images/BG_CM_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+.profil-info-content{
+    background-image: url(../../assets/images/old-paper-profil.png);
+    background-size: cover;
+    display: inline-block;
+    width: 30%;
+    height: 650px;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+.img-person-border{
+    background-image: url(../../assets/images/img_peson_border.png);
+    background-size: cover;
+    width: 150px;
+    height: 230px;
+    display: inline-block;
+    margin-left: 30%;
+    margin-top: 20%;
+}
+.img-profil{
+    width: 105px;
+    height: 147px;
+    display: block;
+    margin-left: 15%;
+    margin-top: 49%;
+}
+.rang-div{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    margin-top: 40%;
+    margin-left: 1%;
+}
+.img-rang{
+    width: 60px;
+    height: 60px;
+}
+.rang-number{
+    padding-left: 18px;
+    padding-top: 15px;
+    position: absolute;
+    font-size: x-large;
+    font-family: fantasy;
+}
+.setting-btn{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0px;
+    margin-top: 25%;
+    margin-left: 28px;
+}
+.img-setting{
+    width: inherit;
+}
+.setting-and-rang{
+    height: 150px;
+    display: inline-block;
+    margin-top: 20%;
+}
+.name-person{
+    width: 250px;
+    height: 100px;
+    display: flex;
+    margin-left: 23%;
+}
+.img-name-panel{
+    width: inherit;
+    height: initial;
+}
+.name-text{
+    position: absolute;
+    margin-left: 25px;
+    margin-top: 30px;
+    font-size: x-large;
+    font-family: cursive;
+    font-style: italic;
+}
+.text-panel{
+    background-image: url(../../assets/images/text-panel.png);
+    margin-left: 13%;
+    background-size: cover;
+    width: 280px;
+    height: 65px;
+}
+.text-in-panel{
+    margin-left: 75px;
+    padding-top: 23px;
+    font-style: italic;
+    font-family: serif;
+    font-size: x-large;
+}
+.middle-content{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 650px;
+    height: 600px;
+    margin-top: 10%;
+    margin-left: 1%;
+}
+.reg-game-button-div{
+    background-image: url(../../assets/images/fight.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 10%;
+    width: 450px;
+    height: 280px;
+}
+.img-reg-game-button{
+    width: 240px;  
+}
+.reg-game-button{
+    background-color: transparent;
+    border: 0px;
+    margin-top: 29%;
+    margin-left: 22%;
+}
+.Chat-content{
+    background-image: url(../../assets/images/chat_panel.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 550px;
+    height: 320px;
+}
+.right-content{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 650px;
+    height: 600px;
+    margin-top: 3.5%;
+}
+.friend-panel{
+    background-image: url(../../assets/images/friend-panel.png);
+    width: 100%;
+    height: 690px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.friend-content{
+    width: 100%;
+    height: 100%;
+}
+.img-friend-text{
+    width: 200px;
+    height: 60px;
+    margin-left: 20%;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+.friend{
+    width: 285px;
+    height: 100px;
+    margin-left: 23%;
+    margin-bottom: 2.5%;
+    display: block;
+    background-image: url(../../assets/images/background-friend-panel.jpg);
+    background-size: contain;
+
+}
+.img-friend{
+    width: 75%;
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 15%;
+}
+.friend-ramka{
+    background-image: url(../../assets/images/ramka_for_friend.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 25%;
+    display: inline-block;
+    position: relative;
+}
+.friend-content-panel{
+    width: 75%;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+.friend-up-content-panel{
+    width: 100%;
+    height: 50%;
+    display: -webkit-box;
+    position: relative;
+}
+.friend-down-content-panel{
+    width: 100%;
+    height: 50%;
+    display: block;
+    position: relative;
+}
+.friend-rang{
+    width: 25%;
+    height: 100%;
+    display: inline;
+}
+.img-friend-rang{
+    width: 25%;
+    height: 100%;
+    position: absolute;
+}
+.friend-rang-number{
+    padding-left: 14px;
+    padding-top: 9px;
+    position: absolute;
+    font-size: x-large;
+    font-family: fantasy;
+}
+.text-name-panel{
+    width: 60%;
+    height: 100%;
+    display: block;
+    margin-left: 25%;
+}
+.text-name-label{
+    position: absolute;
+    margin-top: 5%;
+    margin-left: 10%;
+    font-size: x-large;
+    font-family: fantasy;
+    color: black;
+}
+.friend-delete-button{
+    position: absolute;
+    background-color: transparent;
+    border: 0;
+}
+.img-friend-delete{
+    width: 100%;
+}
+.delete-button-panel{
+    width: 20%;
+    height: 100%;
+    display: inline;
     position: absolute;
     right: 0;
-    max-width: 50% !important;
-    top: 1%;
-    width: 500px;
-    height: 70%;
-    overflow: auto;
-    border-radius: 5px;
-    background: #232526;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #414345, #232526);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #414345, #232526);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
-.py-5 {
-    padding-top: 1rem !important;
+.online-friend-panel{
+    height: 100%;
+    width: 20%;
+    display: inline-block;
+    position: relative;
 }
-
-.your_avatar {
-    width: 100%;
-    height: 150px;
-}
-
-.all_content{
-    background-image: url(../../assets/images/tavern.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    color: white;
-    text-transform: uppercase;
-    font-family: 'Fondamento', cursive;
-}
-
-.card {
-    margin: 2%;
-    background: #0f0c29;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.card-header {
-    background: #232526;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #414345, #232526);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #414345, #232526);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.name_item {
-    color: white;
-    margin-left: 35%;
-}
-
-.btn-primary {
-    background-color: #d8be52;
-    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
-    box-shadow: 0px 2px 6px 0px #362c26;
-    border-radius: 2px;
-    border: solid 3px #795548;
-}
-
-.btn-primary:hover {
-    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
-}
-
-.bt-wrapper {
-    cursor: pointer;
-    width: 200px;
-    padding: 0 2px;
-    border-right: none;
-    border-left: none;
-    box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.35);
-    border-radius: 5px;
-}
-
-.bt-button {
-    display: block;
-    text-align: center;
-    border-radius: 2px;
-    border: solid 3px #795548;
-}
-
-.bt-text {
-    display: table-cell;
-    width: 100%;
-    vertical-align: middle;
-    padding: 9px 24px;
-    padding: 0.6rem 1.5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-shadow: 0 0 4px #000, 0 0 8px #000;
-    font-size: 20px;
-    font-size: 1.25rem;
-    letter-spacing: 2px;
-}
-
-.bt-border {
-    display: table;
-    padding: 3px;
-    border-radius: 2px;
-    height: 35px;
-    min-height: 35px;
-    width: 100%;
-    /* Font style */
-    text-transform: uppercase;
-    font-family: 'Fondamento', cursive;
-    font-weight: normal;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 1px 1px #000;
-    font-size: 17px;
-    line-height: 1;
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-.bt-wrapper.gold {
-    background-color: #d8be52;
-    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
-    border-top: 2px solid #d8be52;
-    border-bottom: 2px solid #1c140d;
+.To-fight-frind-btn{
+    display: inline-block;
+    width: 60%;
+    height: 85%;
+    background-color: transparent;
+    border: 0;
     position: absolute;
-    right: 5%;
-    top: 80%;
+    margin-top: 2%;
 }
-
-.bt-button.gold {
-    background: linear-gradient(to bottom, #6f5742, #81615d);
+.To-chat-frind-btn{
+    display: inline-block;
 }
-
-.bt-text.gold {
-    background: radial-gradient(circle, #edca37 25%, #a77d33 75%, #5f3f1d);
+.img-to-fight-btn{
+    width: 100%;
 }
-
-.bt-border.gold {
-    background-color: #a77d33;
-    box-shadow: 0px 2px 6px 0px #362c26;
-    background: linear-gradient(to bottom, #d8be52, #d5b631 5%, #5f3f1d 59%, #362c26);
+.img-to-write-btn{
+    width: 100%;
 }
-
-.bt-border:hover .bt-text.gold {
-    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
+.To-write-frind-btn{
+    width: 25%;
+    display: inline-block;
+    position: absolute;
+    right: -2%;
+    height: 100%;
+    margin-left: 1%;
+    border: 0;
+    background-color: transparent;
+}
+.img-online-cercle{
+    width: 70%;
+    position: absolute;
+    margin-left: 15%;
+    margin-top: 20%;
 }
