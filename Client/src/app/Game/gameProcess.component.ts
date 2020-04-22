@@ -45,7 +45,7 @@ export class GameProcessComponent{
         for(var i=0;i<data.length;i++){
             if(this.cubesInfo[i].change){
                 this.cubesInfo[i].value = data[i];
-                this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+data[i]+".png");
+                //this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+data[i]+".png");
                 this.cubesInfo[i].change = false;
             }
         }
@@ -83,20 +83,20 @@ export class GameProcessComponent{
             this.cubesInfo[i].value = 1;
            this.cubesInfo[i].change = true;
            this.cubesInfo[i].indexCubeOnTable = i;
-           this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+this.cubesInfo[i].value+".png");
+           //this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+this.cubesInfo[i].value+".png");
 
-           this.cubesEnemy.push(require("../../assets/images/cubes/cube_enemy_private.png"));
+           //this.cubesEnemy.push(require("../../assets/images/cubes/cube_enemy_private.png"));
         }
         console.log(this.cubesInfo);
     }
     viewImageCubes(){
         for(var i=0;i<this.cubes.length;i++){
-            this.cubesImage[i] = require("../../assets/images/cubes/cube_"+this.cubes[i]+".png");
+            //this.cubesImage[i] = require("../../assets/images/cubes/cube_"+this.cubes[i]+".png");
         }
     }
     viewImageEnemyCubes(){
         for(var i=0;i<this.gameManager.cubesEnemy.length;i++){
-            this.cubesEnemy[i] = require("../../assets/images/cubes/cube_"+this.gameManager.cubesEnemy[i]+".png");
+            //this.cubesEnemy[i] = require("../../assets/images/cubes/cube_"+this.gameManager.cubesEnemy[i]+".png");
         }
     }
     upBet(){

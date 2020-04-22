@@ -157,10 +157,15 @@
     margin-top: 25px;
     margin-bottom: 20px;
 }
+.friends-content-scroll{
+    overflow: auto;
+    max-height: 450px;
+    width: 79.2%;
+}
 .friend{
     width: 285px;
     height: 100px;
-    margin-left: 23%;
+    margin-left: 29%;
     margin-bottom: 2.5%;
     display: block;
     background-image: url(../../assets/images/background-friend-panel.jpg);

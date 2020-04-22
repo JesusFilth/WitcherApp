@@ -5,7 +5,7 @@ export class User{
         public winCount?:Int16Array,
         public gold?:Int32Array,
         public imgAvatarHref?:string,
-        public pank?:Int16Array,
+        public rank?:Int16Array,
         public friends?:Friend[]
     ){}
    

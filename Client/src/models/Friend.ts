@@ -1,9 +1,9 @@
 export class Friend{
     constructor(
         public name?:string,
-        public lastTimeOnline?:string,
+        public online?:boolean,
         public imgHref?:string,
-        public pank?:Int16Array
+        public rank?:Int16Array
     ){}
     
 }

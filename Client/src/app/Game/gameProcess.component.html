@@ -1,79 +1,116 @@
-<div class="game-mode">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 order-md-2 right-block-users">
-                <h4 class="d-flex justify-content-between mb-3"> <span class>Бой №1</span> </h4>
-                <div class="card"> <img class="your_avatar" src="avatar.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">Никнейм</h4>
-                    </div>
+<div class="all-content">
+    <div class="all-table-panel">
+        <div class="win-panel">
+            <div class="win-content-panel">
+                <div class="enemy-win-stone-panel">
+                    <img class="img-win_stone" src="../../assets/images/win_stone.png">
+                    <img class="img-win_stone" src="../../assets/images/win_stone.png">
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6 class="my-0">Выиграно</h6> <small class="text-muted">в этом раунде</small>
-                        </div> <span class="text-muted">19</span>
-                    </li>
-                </ul>
-                <form class="card">
-                    <div class="input-group">
-                        <input class="form-control" placeholder="Поднять ставку" [(ngModel)]="upBetString" name="bet" />
-                        <div class="input-group-append">
-                            <button (click)="upBet()" class="btn-primary btn-block">Поднять ставку</button>
-                        </div>
-                    </div>
-                </form>
-                <li class="list-group-item d-flex justify-content-between bg-light my-2">
-                    <div class="text-success">
-                        <h6 class="my-0"><b>{{gameManager.message}}</b></h6> <small>Общая игровая информация</small>
-                    </div>
-                </li>
-                <div class="progress progress-bar-animated my-2">
-                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar">Время раунда: 22 сек</div>
-                </div><button class="btn btn-primary btn-block">ПАС</button><button
-                    class="btn btn-primary btn-block">В ОЛЛИН</button><button
-                    class="btn btn-primary btn-block" (click)="acceptBet()">ПРИНЯТЬ СТАВКУ</button>
-                <div class="card mt-2"> <img class="your_avatar" src="avatar.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">Никнейм</h4>
-                    </div>
+                <div class="raund-number-panel"></div>
+                <div class="user-win-stone-panel">
+                    <img class="img-win_stone" src="../../assets/images/win_stone.png">
+                    <img class="img-win_stone">
                 </div>
-                <li class="list-group-item d-flex justify-content-between">
-                    <div>
-                        <h6 class="my-0">Выиграно</h6> <small class="text-muted">в этом раунде</small>
-                    </div> <span class="text-muted">20</span>
-                </li>
             </div>
-            <div class="col-md-8 order-md-1">
-                <h4 class="mb-3">Раунд 1</h4>
-                <form class="needs-validation"> </form>
-
-                <div class="row"></div>
-                <div class="card">
-                    <div class=" doska-game card-body">
-                        <h5 class="card-title"><b>Игрок 1</b></h5>
-                        <div class="kosti-round">
-                            <div class="kosti-round" *ngFor="let img of cubesEnemy">
-                                <div class="cube" style="margin: 15px;">
-                                    <img class="cube_img" [src]="img" alt="cube">
-                                </div>
+        </div>
+        <div class="game-table">
+            <div class="enemy-side">
+                <div class="enemy-dice-panel">
+                    <div class="dice">
+                        <div class="enemy-dice-0 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_null.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="enemy-dice-1 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_null.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="enemy-dice-2 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_null.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="enemy-dice-3 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_null.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="enemy-dice-4 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_null.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-side">
+                <div class="user-dice-panel">
+                    <div class="dice">
+                        <div class="user-dice-0 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_1.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="user-dice-1 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_1.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="user-dice-2 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_1.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="user-dice-3 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_1.png"></div>
+                    </div>
+                    <div class="dice">
+                        <div class="user-dice-4 dice-hover"><img class="img-dice" alt="dice" src="../../assets/images/cubes/dice_1.png"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-panel">
+            <div class="control-panel-content">
+                <div class="enemy-panel game-control-panel">
+                    <div class="person-left-panel">
+                        <div class="person-left-panel-up"><label class="name-text">JesusFilth</label></div>
+                        <div class="person-left-panel-down">
+                            <div class="person-left-panel-down-hello"></div>
+                            <div class="person-left-panel-down-rang">
+                                <img class="img-rang" src="../../assets/images/rang.png">
+                                <label class="rang-number-text">20</label>
                             </div>
                         </div>
                     </div>
-                    <button class="btn-primary" (click)="rollCubes()">{{rollButtonText}}</button>
-                    <div class=" doska-game card-body">
-                        <h5 class="card-title"><b>Игрок 2</b></h5>
-                        <div class="kosti-round">
-                            <div class="kosti-round" *ngFor="let img of cubesInfo">
-                                <div class="cube" style="margin: 5px;" (click)="choseChangeCubes(img.indexCubeOnTable)" 
-                                [ngStyle]="{'background-color':cubesInfo[img.indexCubeOnTable].change == true && rollCount == 1? 'red' : ''}">
-                                    <img class="cube_img" style="margin: 10px;" [src]="img.img" alt="cube">
-                                </div>
+                    <div class="person-right-panel"><img class="img-person" src="../../assets/images/default-friend.jpg"></div>
+                </div>
+                <div class="info-panel game-control-panel">
+                    <div class="info-panel-context">
+                        <label class="info-text-label">Общая игровая информация</label>
+                    </div>
+                </div>
+                <div class="all-bet-and-timer-panel game-control-panel">
+                    <div class="all-bet-panel">
+                        <label class="bet-timer-panel">1585</label>
+                    </div>
+                    <div class="timer-panel">
+                        <label class="bet-timer-panel">:35</label>
+                    </div>
+                </div>
+                <div class="buttons-control-panel game-control-panel">
+                    <div class="roll-btn-panel">
+                        <button class="roll-btn"><img class="img-roll-btn" src="../../assets/images/roll_btn.png"></button>
+                    </div>
+                    <div class="all-controls-btn-panel">
+                        <button class="btn-controll"><img class="img-bnt-control" src="../../assets/images/accept_btn.png"></button>
+                        <button class="btn-controll"><img class="img-bnt-control" src="../../assets/images/allin_btn.png"></button>
+                        <button class="btn-controll"><img class="img-bnt-control" src="../../assets/images/up_btn.png"></button>
+                        <input class="input-gold" type="text">
+                        <button class="btn-controll"><img class="img-bnt-control" src="../../assets/images/pas_btn.png"></button>
+                    </div>
+                </div>
+                <div class="user-panel game-control-panel">
+                    <div class="person-left-panel">                 
+                        <div class="person-left-panel-down">
+                            <div class="person-left-panel-down-hello user-gold-panel">
+                                <label class="user-gold-text">1660</label>
+                            </div>
+                            <div class="person-left-panel-down-rang">
+                                <img class="img-rang" src="../../assets/images/rang.png">
+                                <label class="rang-number-text">19</label>
                             </div>
                         </div>
+                        <div class="person-left-panel-up"><label class="name-text">Valera</label></div>
+                    </div>
+                    <div class="person-right-panel"><img class="img-person" src="../../assets/images/default-friend.jpg">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

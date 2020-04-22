@@ -1,267 +1,382 @@
-.friends_list {
+.all-content{
+    background-image: url(../../assets/images/BG_CM_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+.game-table{
+    background-image: url(../../assets/images/game-table.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    width: 63%;
+    height: 100%;
+}
+.all-table-panel{
+    display: inherit;
+    width: 100vw;
+    height: 46vw;
+    margin-top: 3.5%;
+}
+.win-panel{
+    width: 4%;
+    height: 100%;
+    position: relative;
+    display: inline;
+    margin-right: 0.2%;
+}
+.win-content-panel{
+    background-image: url(../../assets/images/win_panel.png);
+    background-size: cover;
+    height: 75%;
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 120%;
+    background-position-x: 12%;
+}
+.img-win_stone{
+    width: 110%;
+    margin-top: 40%;
+}
+.enemy-win-stone-panel{
+    width: 35%;
+    height: 15%;
+    right: 0;
+    position: absolute;
+    margin-top: 85%;
+    display: block;
+}
+.raund-number-panel{
+    background-image: url(../../assets/images/tree_raund.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 70%;
+    height: 14%;
+    margin-top: 365%;
+    position: absolute;
+    right: -10%;
+}
+.user-win-stone-panel{
+    width: 35%;
+    height: 15%;
+    right: 0;
+    bottom: 22%;
+    position: absolute;
+}
+/*ENEMY*/
+.enemy-side{
+    width: 100%;
+    height: 50%;
+}
+.enemy-dice-panel{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.dice{
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+}
+.dice-hover :hover{
+    width: 150%;
+    height: 150%;
+    margin-top: -40%;
+}
+.enemy-dice-0 {
+    width: 65%;
+    height: 17%;
+    margin-top: 65%;
+    margin-left: 10%;
+    cursor: pointer;
+}
+.enemy-dice-1{
+    width: 65%;
+    height: 17%;
+    margin-top: 75%;
+    margin-left: 10%;
+    cursor: pointer;
+}
+.enemy-dice-2{
+    width: 65%;
+    height: 17%;
+    margin-top: 99%;
+    margin-left: 10%;
+    cursor: pointer;
+}
+.enemy-dice-3{
+    width: 65%;
+    height: 17%;
+    margin-top: 143%;
+    margin-left: 1%;
+    cursor: pointer;
+}
+.enemy-dice-4{
+    width: 65%;
+    height: 17%;
+    margin-top: 200%;
+    margin-left: -18%;
+    cursor: pointer;
+}
+.img-dice{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+/*USER*/
+.user-side{
+    width: 100%;
+    height: 50%;
+}
+.user-dice-0{
+    width: 65%;
+    height: 17%;
+    margin-top: 90%;
+    margin-left: 18%;
+    cursor: pointer;
+}
+.user-dice-1{
+    width: 65%;
+    height: 17%;
+    margin-top: 147%;
+    margin-left: -1%;
+    cursor: pointer;
+}
+.user-dice-2{
+    width: 65%;
+    height: 17%;
+    margin-top: 188%;
+    margin-left: -11%;
+    cursor: pointer;
+}
+.user-dice-3{
+    width: 65%;
+    height: 17%;
+    margin-top: 212%;
+    margin-left: -11%;
+    cursor: pointer;
+}
+.user-dice-4{
+    width: 65%;
+    height: 17%;
+    margin-top: 223%;
+    margin-left: -10%;
+    cursor: pointer;
+}
+.user-dice-panel{
+    width: 50%;
+    height: 100%;
+    margin-left: 5%;
+}
+/*Control panel*/
+.control-panel{
+    background-image: url(../../assets/images/control-panel.png);
+    background-size: cover;
+    width: 35%;
+    height: 110%;
+    margin-left: -0.5%;
+    margin-top: -4%;
+}
+.control-panel-content{
+    width: 73%;
+    height: 66%;
+    margin-top: 35%;
+    margin-left: 10%;
+}
+.game-control-panel{
+    width: 100%;
+    height: 20%;
+    margin-bottom: 0.5%;
+    position: relative;
+}
+.all-bet-and-timer-panel{
+    height: 10%;
+}
+.buttons-control-panel{
+    height: 30%;
+}
+.person-left-panel{
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    display: inline-block;
+}
+.person-right-panel{
+    background-image: url(../../assets/images/ramka_for_friend.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 25%;
+    height: 100%;
     position: absolute;
     right: 0;
-    max-width: 50% !important;
-    top: 1%;
-    width: 500px;
-    height: 70%;
-    overflow: auto;
-    border-radius: 5px;
-    background: #232526;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #414345, #232526);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #414345, #232526);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: inline-block;
 }
-
-.py-5 {
-    padding-top: 1rem !important;
-}
-
-.your_avatar {
-    width: 100%;
-    height: 150px;
-}
-
-.game-mode {
-    background-image: url(../../assets/images/stol.jpg);
-    color: white !important;
-    background-size: 100%;
-}
-
-.card {
-    margin: 2%;
-    background: #0f0c29;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.card-header {
-    background: #232526;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #414345, #232526);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #414345, #232526);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.name_item {
-    color: white;
-    margin-left: 35%;
-}
-
-.btn-primary {
-    background-color: #d8be52;
-    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
-    box-shadow: 0px 2px 6px 0px #362c26;
-    border-radius: 2px;
-    border: solid 3px #795548;
-}
-
-.btn-primary:hover {
-    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
-}
-
-.bt-wrapper {
-    cursor: pointer;
-    width: 200px;
-    padding: 0 2px;
-    border-right: none;
-    border-left: none;
-    box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.35);
-    border-radius: 5px;
-}
-
-.bt-button {
-    display: block;
-    text-align: center;
-    border-radius: 2px;
-    border: solid 3px #795548;
-}
-
-.bt-text {
-    display: table-cell;
-    width: 100%;
-    vertical-align: middle;
-    padding: 9px 24px;
-    padding: 0.6rem 1.5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-shadow: 0 0 4px #000, 0 0 8px #000;
-    font-size: 20px;
-    font-size: 1.25rem;
-    letter-spacing: 2px;
-}
-
-.bt-border {
-    display: table;
-    padding: 3px;
-    border-radius: 2px;
-    height: 35px;
-    min-height: 35px;
-    width: 100%;
-    /* Font style */
-    text-transform: uppercase;
-    font-family: 'Fondamento', cursive;
-    font-weight: normal;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 1px 1px #000;
-    font-size: 17px;
-    line-height: 1;
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-.bt-wrapper.gold {
-    background-color: #d8be52;
-    background: linear-gradient(to bottom, #d8be52, #a77d33 9%, #5f3f1d 93%, #1c140d);
-    border-top: 2px solid #d8be52;
-    border-bottom: 2px solid #1c140d;
+.img-person{
+    width: 57%;
     position: absolute;
-    right: 5%;
-    top: 80%;
+    margin-top: 20%;
+    margin-left: 12%;
 }
-
-.bt-button.gold {
-    background: linear-gradient(to bottom, #6f5742, #81615d);
+.person-left-panel-up{
+    background-image: url(../../assets/images/name_panel_person.png);
+    background-size: 115%;
+    background-position-y: 55%;
+    background-position-x: 40%;
+    background-repeat: no-repeat;
+    width: 96%;
+    height: 48%;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
-
-.bt-text.gold {
-    background: radial-gradient(circle, #edca37 25%, #a77d33 75%, #5f3f1d);
+.name-text{
+    width: 52%;
+    height: 55%;
+    margin-top: 2.6%;
+    margin-left: 26%;
+    color: honeydew;
+    font-size: 1.5vw;
+    font-family: cursive;
+    text-align: center;
 }
-
-.bt-border.gold {
-    background-color: #a77d33;
-    box-shadow: 0px 2px 6px 0px #362c26;
-    background: linear-gradient(to bottom, #d8be52, #d5b631 5%, #5f3f1d 59%, #362c26);
+.img-rang{
+    width: 100%;
+    position: absolute;
 }
-
-.bt-border:hover .bt-text.gold {
-    background: radial-gradient(circle, #fed83b 22%, #dba23e 83%, #9d6224);
+.rang-number-text{
+    padding-left: 20%;
+    padding-top: 5%;
+    position: absolute;
+    font-size: 120%;
+    font-family: fantasy;
+    text-align: center;
+    font-size: 1.9vw;
 }
-
-.right-block-users {
-    background-image: url("../../assets/images/wood.jpg");
-    overflow-y: auto;
-    max-height: 700px;
+.person-left-panel-down{
+    width: 100%;
+    height: 45%;
+    right: 0;
+    position: relative;
 }
-
-.doska-game {
-    padding: 0 !important;
+.person-left-panel-down-hello{
+    height: 100%;
+    width: 82%;
+    position: absolute;
 }
-
-.first-face {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
+.person-left-panel-down-rang{
+    height: 100%;
+    width: 18%;
+    position: absolute;
+    right: 0;
 }
-
-.second-face {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.info-panel-context{
+    background-image: url(../../assets/images/info-text-panel.png);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
-
-.second-face .pip:nth-of-type(2) {
-    align-self: flex-end;
+.info-text-label{
+    color: white;
+    margin-top: 10%;
+    margin-left: 11%;
+    width: 75%;
+    font-family: cursive;
+    text-align: center;
+    font-size: 1.1vw;
 }
-
-.third-face {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.all-bet-panel{
+    background-image: url(../../assets/images/gold_panel.png);
+    background-size: cover;
+    width: 50%;
+    height: 100%;
+    position: absolute;
 }
-
-.third-face .pip:nth-of-type(2) {
-    align-self: center;
+.bet-timer-panel{
+    color: white;
+    margin-top: 7%;
+    margin-left: 11%;
+    width: 75%;
+    font-family: cursive;
+    text-align: center;
+    font-size: 1.1vw;
 }
-
-.third-face .pip:nth-of-type(3) {
-    align-self: flex-end;
+.timer-panel{
+    background-image: url(../../assets/images/timer_panel.png);
+    background-size: cover;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    right: 0;
 }
-
-.fourth-face,
-.sixth-face {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.roll-btn-panel{
+    height: 100%;
+    width: 35%;
+    position: absolute;
 }
-
-.fourth-face .column,
-.sixth-face .column {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.img-roll-btn{
+    width: 130%;
+    margin-top: -15%;
+    margin-left: -15%;
 }
-
-.fifth-face {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.all-controls-btn-panel{
+    height: 100%;
+    width: 65%;
+    position: absolute;
+    right: 0;
 }
-
-.fifth-face .column {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+.btn-controll{
+    width: 45%;
+    height: 30%;
+    margin-right: 3%;
+    background-color: transparent;
+    border: 0;
 }
-
-.fifth-face .column:nth-of-type(2) {
-    -webkit-box-pack: center;
-    justify-content: center;
+.img-bnt-control{
+    width: 120%;
+    height: 100%;
 }
-
-.kosti-round {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    vertical-align: center;
-    flex-wrap: wrap;
-    align-content: center;
-    background: transparent;
+.user-gold-panel{
+    background-image: url(../../assets/images/user_gold_panel.png);
+    background-size: cover;
+    height: 100%;
+    width: 58%;
+    position: absolute;
+    right: 19%;
 }
-
-[class$="face"] {
-    margin: 16px;
-    padding: 4px;
-    background-color: #e7e7e7;
-    width: 104px;
-    height: 104px;
-    -o-object-fit: contain;
-    object-fit: contain;
-    box-shadow: inset 0 5px white, inset 0 -5px #bbb, inset 5px 0 #d7d7d7, inset -5px 0 #d7d7d7;
-    border-radius: 10%;
+.user-gold-text{
+    color: darkgoldenrod;
+    margin-top: 2%;
+    margin-left: 2%;
+    width: 55%;
+    font-family: monospace;
+    text-align: right;
+    font-size: 1.9vw;
 }
-
-.pip {
-    display: block;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    margin: 4px;
-    background-color: #333;
-    box-shadow: inset 0 3px #111, inset 0 -3px #555;
+.input-gold{
+    width: 43%;
+    margin: 2.5%;
+    margin-left: 4.5%;
+    position: relative;
+    height: 20%;
+    background-color: black;
+    border-color: darkgoldenrod;
+    color: white;
+    text-align: center;
+}
+.btn-pass{
+    margin-top: 2.5%;
+    width: 95%;
+}
+.roll-btn{
+    width: 85%;
+    height: 85%;
+    margin: 7.5%;
+    background-color: transparent;
+    border: 0;
 }
