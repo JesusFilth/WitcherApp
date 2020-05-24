@@ -3,6 +3,7 @@
 
 для закачки модулей node_modules, через cmd:
 - указываем путь ../Client
+- npm install -g @angular/cli
 - npm install
 
 для запуска клиента, через cmd:

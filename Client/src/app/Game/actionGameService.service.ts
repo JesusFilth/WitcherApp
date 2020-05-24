@@ -5,6 +5,8 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 export class ActionGameService {
   messageReceived = new EventEmitter<any>();
   rollCubesReceived = new EventEmitter<any>();
+  connectionMessage = new EventEmitter<any>();
+
   connectionEstablished = new EventEmitter<Boolean>();
 
   private connectionIsEstablished = false;
@@ -16,19 +18,28 @@ export class ActionGameService {
     this.startConnection();
   }
 
-  Send_upBet(gold:string) {
-     this._hubConnection.invoke('UpBet', gold);
+  Send_upBet(id:string, gold:number) {
+     this._hubConnection.invoke('UpBet',id, gold);
   }
-  Send_rollCubes(count:number, index?:Array<number>){
-    this._hubConnection.invoke('RollCubes',count,index);
+  Send_rollCubes(id:string,count:number, index?:Array<number>){
+    this._hubConnection.invoke('RollCubes',id,count,index);
   }
-  Send_acceptBet(){
-    this._hubConnection.invoke('AcceptBet');
+  Send_passBet(id:string){
+    this._hubConnection.invoke('PassBet',id);
+  }
+  Send_acceptBet(id:string){
+    this._hubConnection.invoke('AcceptBet',id);
+  }
+  Send_allInBet(id:string){
+    this._hubConnection.invoke('AllInBet',id);
+  }
+  Send_CreateRoom(name:string, gold:number, id:string){
+    this._hubConnection.invoke('CreateRoom',name, gold, id);
   }
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:44398/MessageHub")
+      .withUrl("https://localhost:5001/GameProcess")
       .build();
   }
 
@@ -52,6 +63,9 @@ export class ActionGameService {
     });
     this._hubConnection.on('RollCubesReceived', (data: any) => {
       this.rollCubesReceived.emit(data);
+    });
+    this._hubConnection.on('ConnectionMessage', (data: any) => {
+      this.connectionMessage.emit(data);
     });
   }
 }  

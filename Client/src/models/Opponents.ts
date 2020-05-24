@@ -1,9 +1,9 @@
-import {User} from './User';
+import {UserClient} from './UserClient';
 import {Enemy} from './Enemy';
 
 export class Opponents{
     constructor(
-        public user?:User,
+        public user?:UserClient,
         public enemy?:Enemy
     ){}
 }

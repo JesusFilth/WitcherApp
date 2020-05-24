@@ -10,18 +10,20 @@ import {CharacterManager} from './CharacterManager/characterManager.component';
 import {RegisterComponent} from './Register/Register.component';
 import {GameProcessComponent} from './Game/gameProcess.component';
 
-import {ActionGameService} from './Game/actionGameService.service'
+import {ActionGameService} from './Game/actionGameService.service';
+import {GameSearchService} from './CharacterManager/gameSearchManager.component';
 
 const appRoutes: Routes = [
     {path:'', component:LoginComponent},
     {path:'characterManager',component:CharacterManager},
     {path:'Register',component:RegisterComponent},
-    {path:'GameProcess',component:GameProcessComponent}
+    {path:'GameProcess',component:GameProcessComponent},
+    {path:'Login', component:LoginComponent}
 ];
 @NgModule({
     imports:      [ BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes) ],
     declarations: [ AppComponent, LoginComponent, CharacterManager, RegisterComponent, GameProcessComponent],
-    providers:[ActionGameService],
+    providers:[ActionGameService, GameSearchService],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

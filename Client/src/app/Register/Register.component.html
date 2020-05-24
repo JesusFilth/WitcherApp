@@ -4,9 +4,9 @@
   <div class="login-content">
 	<div>
 	  <form id="slick-login" class="login-form">
-		<label for="name">Ник:</label><input type="text" name="name" class="placeholder" placeholder="ник...">
-		<label for="username">Логин:</label><input type="text" name="login" class="placeholder" placeholder="admin@example.com">
-		<label for="password">Пароль:</label><input type="password" name="password" class="placeholder" placeholder="Сложный пароль...">   
+		<label for="name">Ник:</label><input type="text" [(ngModel)]="loginReg.name" name="name" class="placeholder" placeholder="ник...">
+		<label for="username">Логин:</label><input type="text" [(ngModel)]="loginReg.mail" name="login" class="placeholder" placeholder="admin@example.com">
+		<label for="password">Пароль:</label><input type="password" [(ngModel)]="loginReg.password" name="password" class="placeholder" placeholder="Сложный пароль...">   
 		  
 		<button class="login-btn reg-button" (click)="goToCharecterManager()"><img class="img-button" src="../../assets/images/reg-button.png"></button>
 	</form>	

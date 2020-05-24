@@ -24,7 +24,7 @@ export class GameProcessComponent{
 
     upBetString:string = '';
     rollCount:number = 0;
-    rollButtonText:string = 'Бросить кости';
+    test:string = "../../assets/images/cubes/dice_1.png";
 
     opponents:Opponents = new Opponents();
     constructor(private router:Router, 
@@ -35,17 +35,26 @@ export class GameProcessComponent{
         this.cubeInfoStart();
         this.subscribeToEvents();
 
-        this.gameManager.message = '';
+        //сохронять данные пользователя при перезагурзке страницы
+        if(this.opponents!=null){
+            localStorage.setItem("opponents", JSON.stringify(this.opponents));
+        }
+        else{
+            let temp = JSON.parse(localStorage.getItem("opponents"));
+            this.opponents = temp;
+        } 
     }
     choseChangeCubes(data:number){
-        if(this.rollCount==1)
+        if(this.rollCount==1&&this.gameManager.bargainEnd)
             this.cubesInfo[data].change = !this.cubesInfo[data].change;
+        else
+            this.gameManager.message = "Сперва сторгуйтесь";
     }
     ChangeCubesInfo(data:number[]){
         for(var i=0;i<data.length;i++){
             if(this.cubesInfo[i].change){
                 this.cubesInfo[i].value = data[i];
-                //this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+data[i]+".png");
+                this.cubesInfo[i].img = require("../../assets/images/cubes/dice_"+this.cubesInfo[i].value+".png");
                 this.cubesInfo[i].change = false;
             }
         }
@@ -53,8 +62,7 @@ export class GameProcessComponent{
     }
     rollCubes(){
         if(this.rollCount==0){
-            this.actionGameService.Send_rollCubes(5);
-            this.rollButtonText = 'Перебросить кости';
+            this.actionGameService.Send_rollCubes(this.opponents.user.id, 5);
         }
         else{
             let count=0;
@@ -68,8 +76,7 @@ export class GameProcessComponent{
             });
             if(count>0)
             {
-                this.actionGameService.Send_rollCubes(count,index);
-                this.rollButtonText = 'Бросить кости';
+                this.actionGameService.Send_rollCubes(this.opponents.user.id,count,index);
                 this.rollCount++;
             }
             else{
@@ -83,7 +90,7 @@ export class GameProcessComponent{
             this.cubesInfo[i].value = 1;
            this.cubesInfo[i].change = true;
            this.cubesInfo[i].indexCubeOnTable = i;
-           //this.cubesInfo[i].img = require("../../assets/images/cubes/cube_"+this.cubesInfo[i].value+".png");
+           this.cubesInfo[i].img = require("../../assets/images/cubes/dice_"+this.cubesInfo[i].value+".png");
 
            //this.cubesEnemy.push(require("../../assets/images/cubes/cube_enemy_private.png"));
         }
@@ -100,16 +107,24 @@ export class GameProcessComponent{
         }
     }
     upBet(){
-        this.actionGameService.Send_upBet(this.upBetString);
+        this.actionGameService.Send_upBet(this.opponents.user.id, Number.parseInt(this.upBetString));
     }
     acceptBet(){
-        this.actionGameService.Send_acceptBet();
+        this.actionGameService.Send_acceptBet(this.opponents.user.id);
+    }
+    passBet(){
+        this.actionGameService.Send_passBet(this.opponents.user.id);
+    }
+    allInBet(){
+        this.actionGameService.Send_allInBet(this.opponents.user.id);
     }
     ///servece
     private subscribeToEvents(): void {
+        //приходящие сообщение о статусе игры
         this.actionGameService.messageReceived.subscribe((data: GameManager) => {
           this._ngZone.run(() => {
            this.gameManager = data;
+           console.log(this.gameManager);
            if(this.gameManager.cubesEnemy!=null){
             this.viewImageEnemyCubes();
            }
@@ -118,7 +133,15 @@ export class GameProcessComponent{
         //roll cubes
         this.actionGameService.rollCubesReceived.subscribe((data: any) => {
             this._ngZone.run(() => {
+                console.log(data);
                 this.ChangeCubesInfo(data);
+            });
+          });
+          this.actionGameService.connectionMessage.subscribe((data: any) => {
+            this._ngZone.run(() => {
+                //подключение установлено
+                //создаем лобби
+                this.actionGameService.Send_CreateRoom(this.opponents.user.name, this.opponents.user.gold, this.opponents.user.id);
             });
           });
       }

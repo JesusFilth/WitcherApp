@@ -1,9 +1,11 @@
 
 export class GameManager{
     constructor(
-        public cubesEnemy?:Int16Array[],
-        public allBet?:Int32Array,
+        public cubesEnemy?:number[],
+        public userGold?:number,
+        public allBet?:number,
         public message?:string,
-        public raund?:Int16Array
+        public raund?:number,
+        public bargainEnd?:boolean
     ){}
 }
