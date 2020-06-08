@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="game-mode">
     <div class="container">
         <div class="row">
@@ -20,6 +21,42 @@
                         <input type="text" class="form-control" placeholder="Поднять ставку">
                         <div class="input-group-append">
                             <button type="submit" class="btn-primary btn-block">Скинуть золото</button>
+=======
+<div class="all-content">
+    <div class="all-table-panel">
+        <div class="win-panel">
+            <div class="win-content-panel">
+                <div class="enemy-win-stone-panel">
+                    <img class="img-win_stone" *ngIf="gameManager.enemyWin==1" src="../../assets/images/win_stone.png">
+                    <img class="img-win_stone" *ngIf="gameManager.enemyWin==2" src="../../assets/images/win_stone.png">
+                </div>
+                <div class="raund-number-panel">
+                    <img class="img-raund-number" [src]="raundImg">
+                </div>
+                <div class="user-win-stone-panel">
+                    <img class="img-win_stone" *ngIf="gameManager.userWin==1" src="../../assets/images/win_stone.png">
+                    <img class="img-win_stone" *ngIf="gameManager.userWin==2" src="../../assets/images/win_stone.png">
+                </div>
+            </div>
+        </div>
+        <div class="game-table">
+            <div class="enemy-side">
+                <div class="enemy-dice-panel">
+                    <div class="dice" *ngFor = "let di of cubesEnemy">
+                        <div class="dice-hover" [ngClass]="'enemy-dice-'+di.indexCubeOnTable">
+                            <img class="img-dice" alt="dice" [src]="di.img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-side">
+                <div class="user-dice-panel">
+                    <div class="dice" *ngFor = "let di of cubesInfo">
+                        <div class="dice-hover" (click)="choseChangeCubes(di.indexCubeOnTable)"        
+                         [ngClass]="'user-dice-'+di.indexCubeOnTable">
+                            <img class="img-dice" alt="dice" [src]="di.img"
+                             [ngStyle]="{'background-color': cubesInfo[di.indexCubeOnTable].change == true && gameManager.rollRaund == 1? 'red' : ''}">
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </form>
@@ -44,6 +81,7 @@
                     </div> <span class="text-muted">20</span>
                 </li>
             </div>
+<<<<<<< Updated upstream
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Раунд 1</h4>
                 <form class="needs-validation"> </form>
@@ -128,6 +166,56 @@
                                     <span class="pip"></span>
                                     <span class="pip"></span>
                                 </div>
+=======
+        </div>
+        <div class="control-panel">
+            <div class="control-panel-content">
+                <div class="enemy-panel game-control-panel">
+                    <div class="person-left-panel">
+                        <div class="person-left-panel-up"><label class="name-text">{{opponents.enemy.name}}</label></div>
+                        <div class="person-left-panel-down">
+                            <div class="person-left-panel-down-hello user-gold-panel">
+                                <label class="user-gold-text">{{gameManager.enemyGold}}</label>
+                            </div>
+                            <div class="person-left-panel-down-rang">
+                                <img class="img-rang" src="../../assets/images/rang.png">
+                                <label class="rang-number-text">{{opponents.enemy.rank}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="person-right-panel"><img class="img-person" src="../../assets/images/default-friend.jpg"></div>
+                </div>
+                <div class="info-panel game-control-panel">
+                    <div class="info-panel-context">
+                        <textarea  class="info-text-label">{{infoText}}</textarea>
+                    </div>
+                </div>
+                <div class="all-bet-and-timer-panel game-control-panel">
+                    <div class="all-bet-panel">
+                        <label class="bet-timer-panel">{{gameManager.allBet}}</label>
+                    </div>
+                    <div class="timer-panel">
+                        <label class="bet-timer-panel">:35</label>
+                    </div>
+                </div>
+                <div class="buttons-control-panel game-control-panel">
+                    <div class="roll-btn-panel">
+                        <button class="roll-btn" (click)="rollCubes()"><img class="img-roll-btn" src="../../assets/images/roll_btn.png"></button>
+                    </div>
+                    <div class="all-controls-btn-panel">
+                        <button class="btn-controll" (click)="acceptBet()"><img class="img-bnt-control" src="../../assets/images/accept_btn.png"></button>
+                        <button class="btn-controll" (click)="allInBet()"><img class="img-bnt-control" src="../../assets/images/allin_btn.png"></button>
+                        <button class="btn-controll" (click)="upBet()"><img class="img-bnt-control" src="../../assets/images/up_btn.png"></button>
+                        <input class="input-gold" type="number" [(ngModel)]="upBetString">
+                        <button class="btn-controll" (click)="passBet()"><img class="img-bnt-control" src="../../assets/images/pas_btn.png"></button>
+                    </div>
+                </div>
+                <div class="user-panel game-control-panel">
+                    <div class="person-left-panel">                 
+                        <div class="person-left-panel-down">
+                            <div class="person-left-panel-down-hello user-gold-panel">
+                                <label class="user-gold-text">{{gameManager.userGold}}</label>
+>>>>>>> Stashed changes
                             </div>
                             <div class="fifth-face">
                                 <div class="column">
