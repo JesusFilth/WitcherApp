@@ -6,6 +6,7 @@ import {DataServer} from '../data.server';
 import { ActionGameService } from './actionGameService.service';
 import { GameManager} from "../../models/GameManager";
 import {Cube} from '../../models/Cube';
+import {EnemyDice} from '../../models/EnemyDice';
 
 @Component({
     selector:'app-game',
@@ -15,16 +16,14 @@ import {Cube} from '../../models/Cube';
 })
 export class GameProcessComponent{
 
-    cubesImage: Array<any> = new Array<any>();
-    cubesEnemy: Array<any> = new Array<any>();
+    cubesEnemy: Array<Cube>;
+    cubesInfo: Array<Cube>;
 
-    cubesInfo:Array<Cube> = new Array<Cube>();
-    cubes:number[];//change this
     gameManager:GameManager = new GameManager();
 
-    upBetString:string = '';
-    rollCount:number = 0;
-    test:string = "../../assets/images/cubes/dice_1.png";
+    upBetString:number;
+    infoText:string = '';
+    raundImg:any;
 
     opponents:Opponents = new Opponents();
     constructor(private router:Router, 
@@ -45,10 +44,11 @@ export class GameProcessComponent{
         } 
     }
     choseChangeCubes(data:number){
-        if(this.rollCount==1&&this.gameManager.bargainEnd)
-            this.cubesInfo[data].change = !this.cubesInfo[data].change;
+        if(this.gameManager.rollRaund==1&&this.gameManager.bargainEnd)
+           this.cubesInfo[data].change = !this.cubesInfo[data].change;
         else
-            this.gameManager.message = "Сперва сторгуйтесь";
+           this.gameManager.message = "Сперва сторгуйтесь";
+        
     }
     ChangeCubesInfo(data:number[]){
         for(var i=0;i<data.length;i++){
@@ -58,10 +58,16 @@ export class GameProcessComponent{
                 this.cubesInfo[i].change = false;
             }
         }
-        this.rollCount++;
+        //this.gameManager.rollRaund++;
     }
     rollCubes(){
-        if(this.rollCount==0){
+        if(this.gameManager.rollRaund==0){
+            if(this.gameManager.raund>1)
+            {
+                console.log("roll");
+                this.cubeInfoStart();
+                this.infoText = "Раунд "+this.gameManager.raund;
+            }
             this.actionGameService.Send_rollCubes(this.opponents.user.id, 5);
         }
         else{
@@ -77,7 +83,7 @@ export class GameProcessComponent{
             if(count>0)
             {
                 this.actionGameService.Send_rollCubes(this.opponents.user.id,count,index);
-                this.rollCount++;
+                this.gameManager.rollRaund++;
             }
             else{
                 this.gameManager.message = "Выберите кости которые хотите перебросить";
@@ -85,29 +91,32 @@ export class GameProcessComponent{
         }
     }
     cubeInfoStart(){     
+        this.cubesInfo = new Array<Cube>();
+        this.cubesEnemy = new Array<Cube>();
         for(var i=0;i<5;i++){
             this.cubesInfo.push(new Cube());
             this.cubesInfo[i].value = 1;
            this.cubesInfo[i].change = true;
            this.cubesInfo[i].indexCubeOnTable = i;
-           this.cubesInfo[i].img = require("../../assets/images/cubes/dice_"+this.cubesInfo[i].value+".png");
+           this.cubesInfo[i].img = require("../../assets/images/cubes/dice_null.png");
 
-           //this.cubesEnemy.push(require("../../assets/images/cubes/cube_enemy_private.png"));
-        }
-        console.log(this.cubesInfo);
-    }
-    viewImageCubes(){
-        for(var i=0;i<this.cubes.length;i++){
-            //this.cubesImage[i] = require("../../assets/images/cubes/cube_"+this.cubes[i]+".png");
+           this.cubesEnemy.push(new Cube());
+           this.cubesEnemy[i].img = require("../../assets/images/cubes/dice_null.png");
+           this.cubesEnemy[i].indexCubeOnTable = i;
         }
     }
-    viewImageEnemyCubes(){
-        for(var i=0;i<this.gameManager.cubesEnemy.length;i++){
-            //this.cubesEnemy[i] = require("../../assets/images/cubes/cube_"+this.gameManager.cubesEnemy[i]+".png");
+    viewImageEnemyCubes(cubes:number[]){
+        for(var i=0;i<cubes.length;i++){
+            this.cubesEnemy[i].img = require("../../assets/images/cubes/dice_"+cubes[i]+".png");
+            this.cubesEnemy[i].indexCubeOnTable = i;
         }
     }
     upBet(){
-        this.actionGameService.Send_upBet(this.opponents.user.id, Number.parseInt(this.upBetString));
+        if(this.checkBetInputText()){
+            this.actionGameService.Send_upBet(this.opponents.user.id, this.upBetString);
+            this.upBetString = null;
+        }
+
     }
     acceptBet(){
         this.actionGameService.Send_acceptBet(this.opponents.user.id);
@@ -118,22 +127,55 @@ export class GameProcessComponent{
     allInBet(){
         this.actionGameService.Send_allInBet(this.opponents.user.id);
     }
+    infoTextUpdate(str:string){
+        if(this.infoText == '')
+            this.infoText = str;
+        else{
+            this.infoText+="\n ------------\n";
+            this.infoText+=str;
+        }
+    }
+    checkBetInputText(){
+        if(this.upBetString<=0){
+            this.infoTextUpdate("Недопустимо маленькая сумма");
+            return false;
+        }
+        if(this.upBetString>this.gameManager.userGold){
+            this.infoTextUpdate("Нужна больше золота!");
+            return false;
+        }
+        return true;
+    }
+    checkRaund(data: GameManager){
+        switch(data.raund){//обновляем img раунда
+            case 1:this.raundImg = require("../../assets/images/one_raund.png"); break;
+            case 2:this.raundImg = require("../../assets/images/two_raund.png"); break;
+            case 3:this.raundImg = require("../../assets/images/tree_raund.png"); break;
+        }
+        this.infoTextUpdate(data.message);//обновляем инфу
+        if(data.raund>this.gameManager.raund){//если новый раунд
+            if(data.cubesEnemy!=null){//если нужно вскрыть оппонента
+                this.viewImageEnemyCubes(data.cubesEnemy);
+                //timer maby?
+            }
+            else{//если нет, то просто обнуляем кости
+                this.cubeInfoStart();//обнуляем
+            }
+        }
+        return data;
+    }
     ///servece
     private subscribeToEvents(): void {
         //приходящие сообщение о статусе игры
         this.actionGameService.messageReceived.subscribe((data: GameManager) => {
           this._ngZone.run(() => {
-           this.gameManager = data;
+           this.gameManager = this.checkRaund(data);
            console.log(this.gameManager);
-           if(this.gameManager.cubesEnemy!=null){
-            this.viewImageEnemyCubes();
-           }
           });
         });
         //roll cubes
         this.actionGameService.rollCubesReceived.subscribe((data: any) => {
             this._ngZone.run(() => {
-                console.log(data);
                 this.ChangeCubesInfo(data);
             });
           });
@@ -142,6 +184,19 @@ export class GameProcessComponent{
                 //подключение установлено
                 //создаем лобби
                 this.actionGameService.Send_CreateRoom(this.opponents.user.name, this.opponents.user.gold, this.opponents.user.id);
+            });
+          });
+          this.actionGameService.gameOverReceived.subscribe((data: any) => {
+            this._ngZone.run(() => {
+                //окончание игры
+                console.log("Game Over");
+                console.log(data);
+                if(data.winCount>this.opponents.user.winCount){
+                    console.log("Вы победили");
+                }
+                else{
+                    console.log("Вы Проиграли");
+                }
             });
           });
       }

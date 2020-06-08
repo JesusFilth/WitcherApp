@@ -8,7 +8,7 @@
 }
 public enum Raund
 {
-    first,
+    first = 1,
     second,
     third
 }

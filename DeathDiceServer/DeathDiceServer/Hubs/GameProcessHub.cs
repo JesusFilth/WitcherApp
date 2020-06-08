@@ -1,6 +1,9 @@
-﻿using DeathDiceServer.Models;
+﻿using DeathDiceServer.Controllers;
+using DeathDiceServer.Models;
+using DeathDiceServer.Models.Dice;
 using DeathDiceServer.Models.Hub;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +13,7 @@ namespace DeathDiceServer.Hubs
 {
     public class GameProcessHub:Hub
     {
-        static ApplicationDBContext db;
+        ApplicationDBContext db;
         static List<ConnectUser> connectUsers = new List<ConnectUser>();
         static List<Room> rooms = new List<Room>();
         public GameProcessHub(ApplicationDBContext context)
@@ -41,7 +44,7 @@ namespace DeathDiceServer.Hubs
                         Gold = us.Gold, 
                         Step = true, 
                         WinCount = 0, 
-                        RollRaund = 0,//на время 
+                        RollRaund = 0,
                         stateGame = StateGame.none 
                     });
                     //стартовая ставка
@@ -52,11 +55,10 @@ namespace DeathDiceServer.Hubs
 
                 foreach(var us in temp.Users)
                 {
-                    await Clients.Client(us.Id).SendAsync("MessageReceived", new GameManager()
-                    {
-                        AllBet = temp.GameManager.AllBet,
-                        Message = "Игра началась"
-                    });
+                    await Clients.Client(us.Id).SendAsync("MessageReceived", GetGameManager(temp.GameManager,
+                        temp.Users.Find(f => f.Id == us.Id),
+                        temp.Users.Find(f=>f.Id!=us.Id),
+                        "Игра началась"));
                 }
             }
         }
@@ -68,10 +70,10 @@ namespace DeathDiceServer.Hubs
         {
             Room room = rooms.Find(w => w.id == Guid.Parse(id));
             UserInGameProcess user = room.Users.Find(w => w.Id == Context.ConnectionId);
+            UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
 
             if (user.Step && user.RollRaund > 0)//если ваш ход и вы уже бросили кости
             {
-                UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
                 switch (enemy.stateGame)
                 {
                     case StateGame.none://если вы делаете ставку первым
@@ -87,7 +89,7 @@ namespace DeathDiceServer.Hubs
                                     string.Format("Противник поднял ставку на {0}", gold.ToString()));
                             }
                             else
-                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "У противника недостаточно золота что бы ответить на вашу ставку"));
+                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user,enemy, "У противника недостаточно золота что бы ответить на вашу ставку"));
                         }
                         break;
                     case StateGame.upBet://если оппонент уже сделал ставку
@@ -98,7 +100,7 @@ namespace DeathDiceServer.Hubs
                             }
                             else if (room.GameManager.LastBet > gold)//ставка не принята, слишком мало дал, ептать
                             {
-                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "Ставка не принята, вы минимум должны сравнять сумму"));
+                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, "Ставка не принята, вы минимум должны сравнять сумму"));
                             }
                             else if (room.GameManager.LastBet < gold)//увеличил ставку
                             {
@@ -118,7 +120,7 @@ namespace DeathDiceServer.Hubs
                                 await CompareBet(room, gold, user, enemy);
                             }
                             else
-                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "сумма должна равняться последней ставки"));
+                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, "сумма должна равняться последней ставки"));
                         }
                         break;
                     case StateGame.pass://если противник спасовал
@@ -136,43 +138,43 @@ namespace DeathDiceServer.Hubs
                                         string.Format("Противник поднял ставку на {0}", gold.ToString()));
                                 }
                                 else
-                                    await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "У противника недостаточно золота что бы ответить на вашу ставку"));
+                                    await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, "У противника недостаточно золота что бы ответить на вашу ставку"));
                             }
                             else
-                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "Противник уже спасовал"));
+                                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, "Противник уже спасовал"));
                         }
                         break;
                 }
             }
             else
-                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
+                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
 
         }
         public async Task AcceptBet(string id)
         {
             Room room = rooms.Find(w => w.id == Guid.Parse(id));
             UserInGameProcess user = room.Users.Find(w => w.Id == Context.ConnectionId);
+            UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
 
             if (user.Step && user.RollRaund > 0)//если ваш ход и вы уже бросили кости
             {
-                UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
                 if (enemy.stateGame == StateGame.upBet|| enemy.stateGame == StateGame.allIn)
                 {
                     await CompareBet(room,room.GameManager.LastBet, user, enemy);
                 }
                 else
-                    await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, "Противник еще не поднимал ставку"));
+                    await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, "Противник еще не поднимал ставку"));
             }
             else
-                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
+                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
         }
         public async Task PassBet(string id)
         {
             Room room = rooms.Find(w => w.id == Guid.Parse(id));
             UserInGameProcess user = room.Users.Find(w => w.Id == Context.ConnectionId);
+            UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
             if (user.Step && user.RollRaund > 0)
             {
-                UserInGameProcess enemy = room.Users.Find(x => x.Id != Context.ConnectionId);
                 if (enemy.stateGame == StateGame.none)//если это первый ход и противник еще не ходил 
                 {
                     user.stateGame = StateGame.pass;
@@ -183,30 +185,27 @@ namespace DeathDiceServer.Hubs
                 }
                 else if (enemy.stateGame == StateGame.upBet || enemy.stateGame == StateGame.allIn)//если противник уже поднял ставку, то вы сливаете раунд 
                 {
-                    //отдать бабло противнику
-                    if (room.GameManager.Raund == Raund.first)//если раунд первый, то отдаем бабло и переходим на следующий
-                    {
-                        room.PassBet(user, enemy);
-                        room.GameManager.Raund = Raund.second;//новый раунд
-
-                        await ReturnMessage(user.Id, enemy.Id, room,
-                        "Вы спасовали, противник выйграл этот раунд.",
-                        "Противник спасовал, вы выйграли этот раунд.");
-                    }
+                    if (room.GameManager.SemiRaund == Raund.first)
+                        room.GameManager.SemiRaund++;
                     else
                     {
-                        room.PassBet(user, enemy);
-                        if (enemy.WinCount == 2)//если у противника уже вторая победа, то вы слили игру
-                        {
-                            //метод окончания игры
-                        }
-                        else
-                        {
-                            room.GameManager.Raund = Raund.third;
-                            await ReturnMessage(user.Id, enemy.Id, room,
-                        "Вы спасовали, противник выйграл этот раунд.",
-                        "Противник спасовал, вы выйграли этот раунд.");
-                        }   
+                        room.GameManager.SemiRaund = Raund.first;
+                    }
+                    if (!room.GameOver())
+                        room.GameManager.Raund++;//новый раунд
+                    //отдать бабло противнику
+                    room.PassBet(user, enemy);
+
+                    await ReturnMessage(user.Id, enemy.Id, room,
+                    "Вы спасовали, противник выиграл этот раунд.",
+                    "Противник спасовал, вы выиграли этот раунд.");
+                    //чекаем окончание игры
+                    if (room.GameOver())
+                    {
+                        //user пасанул значит автоматом отдает победу оппоненту
+                        room.Winner(enemy, user, db);//обновляем бд
+                        //отправляем инфу клиентам
+                        await GameOver(room);
                     }
                 }
                 else if(enemy.stateGame == StateGame.pass)
@@ -215,7 +214,7 @@ namespace DeathDiceServer.Hubs
                 }
             }
             else
-                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
+                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager, user, enemy, (user.RollRaund > 0 ? "Сейчас ходит оппонент" : "Сперва бросте кости")));
         }
         public async Task AllInBet(string id)
         {
@@ -245,7 +244,6 @@ namespace DeathDiceServer.Hubs
                 }
             }
         }
-
         public async Task RollCubes(string id, int countCubes, int[] index = null)
         {
             Room room = rooms.Find(w => w.id == Guid.Parse(id));
@@ -273,14 +271,13 @@ namespace DeathDiceServer.Hubs
                 await Clients.Caller.SendAsync("RollCubesReceived", user.cubes);
             }
             else
-                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager,user,"Сперва торг"));
+                await Clients.Caller.SendAsync("MessageReceived", GetGameManager(room.GameManager,user,room.Users.Find(f=>f.Id!=user.Id),"Сперва торг"));
         }
-
         async Task CompareBet(Room room, int gold, UserInGameProcess user, UserInGameProcess enemy)
         {
             if (room.GameManager.SemiRaund == Raund.first)
             {
-                room.GameManager.SemiRaund = Raund.second;
+                room.GameManager.SemiRaund++;
                 room.AcceptBet(gold, user, enemy);//торг окончен
                 if (user.Gold == 0)
                 {
@@ -293,19 +290,44 @@ namespace DeathDiceServer.Hubs
             }
             else if (room.GameManager.SemiRaund == Raund.second)
             {
-                if (room.GameManager.Raund == Raund.first) //чекаем кости, объявляем победителя раунда
+                room.GameManager.SemiRaund = Raund.first;//обновляем и полу раунд
+                if(!room.GameOver())
+                    room.GameManager.Raund++;//некст раунд ++
+                room.AcceptBet(gold, user, enemy);
+                user.RollRaund = enemy.RollRaund = 0;
+                room.GameManager.OpenEnemyDice = true;//показываем дайсы друг другу
+
+                CombinationDiceResult combinationDiceResultUser = DiceResult(user.cubes);
+                CombinationDiceResult combinationDiceResultEnemy = DiceResult(enemy.cubes);
+
+                int result = combinationDiceResultUser.ToCompare(combinationDiceResultEnemy);
+                string userMessage = null, enemyMessage = null;
+                switch (result)
                 {
-                    //дополнить++++++++++++++++++
-                    await ReturnMessage(user.Id, enemy.Id, room,
-                    "Вы приняли ставку, вскрываем кости.",
-                    "Противник принял ставку, вскрываем кости.");
+                    case 0:
+                        userMessage = string.Format("Вы приняли ставку, вскрываем кости.\n{0}\nНичья", combinationDiceResultUser.Message);
+                        enemyMessage = string.Format("Противник принял ставку, вскрываем кости.\n{0}\nНичья", combinationDiceResultEnemy.Message);
+                        room.Draw(user, enemy);//делим бабло поравну
+                        break;
+                    case 1:
+                        userMessage = string.Format("Вы приняли ставку, вскрываем кости.\n{0}\nВы выиграли", combinationDiceResultUser.Message);
+                        enemyMessage = string.Format("Противник принял ставку, вскрываем кости.\n{0}\nВы Проиграли", combinationDiceResultEnemy.Message);
+                        room.TakeBet(user); //забираем бабло со ставки
+                        break;
+                    case -1:
+                        userMessage = string.Format("Вы приняли ставку, вскрываем кости.\n{0}\nВы Проиграли", combinationDiceResultUser.Message);
+                        enemyMessage = string.Format("Противник принял ставку, вскрываем кости.\n{0}\nВы выиграли", combinationDiceResultEnemy.Message);
+                        room.TakeBet(enemy);//отдаем бабло со ставки
+                        break;
                 }
-                else if (room.GameManager.Raund == Raund.second)//чекаем кости, объявляем победителя игры
+                await ReturnMessage(user.Id, enemy.Id, room, userMessage, enemyMessage);
+                room.GameManager.OpenEnemyDice = false;//отменяем показ костей  оппонента до след. раза
+                //теперь чекаем окончание игры
+                if (room.GameOver())
                 {
-                    //дополнить+++++++++++++++++++
-                    await ReturnMessage(user.Id, enemy.Id, room,
-                    "Вы приняли ставку, вскрываем кости.",
-                    "Противник принял ставку, вскрываем кости.");
+                    room.Winner(user, enemy, db);
+                    //отправляем инфу клиентам
+                    await GameOver(room);
                 }
             }
         }
@@ -313,13 +335,15 @@ namespace DeathDiceServer.Hubs
         {
             await Clients.Client(enemyId).SendAsync("MessageReceived", GetGameManager(room.GameManager,
                 room.Users.Find(f=>f.Id== enemyId),
+                room.Users.Find(f=>f.Id==userId),
                 enemyMessage));
 
             await Clients.Client(userId).SendAsync("MessageReceived", GetGameManager(room.GameManager,
                 room.Users.Find(f => f.Id == userId),
+                room.Users.Find(f=>f.Id==enemyId),
                 userMessage));
         }
-        GameManager GetGameManager(GameManager gameManager, UserInGameProcess user, string message)
+        GameManager GetGameManager(GameManager gameManager, UserInGameProcess user, UserInGameProcess enemy, string message)
         {
             GameManager temp = new GameManager()
             {
@@ -329,9 +353,102 @@ namespace DeathDiceServer.Hubs
                 Raund = gameManager.Raund,
                 SemiRaund = gameManager.SemiRaund,
                 Message = message,
-                UserGold = user.Gold
+                UserGold = user.Gold,
+                EnemyGold = enemy.Gold,
+                UserWin = user.WinCount,
+                EnemyWin = enemy.WinCount,
+                RollRaund = user.RollRaund
             };
+            if (gameManager.OpenEnemyDice)
+                temp.CubesEnemy = enemy.cubes;
+
             return temp;
+        }
+        CombinationDiceResult DiceResult(int[] cubes)
+        {
+            Array.Sort(cubes);//сортируем
+            List<CombinationDice> combinationDices = new List<CombinationDice>();
+            for (int i = 0; i < cubes.Length; i++)
+            {
+                var temp = cubes.Where(w => w == cubes[i]).ToArray();//ищет совпадения
+
+                i += temp.Length - 1;//сразу увеличивает итерацию
+
+                switch (temp.Length)
+                {
+                    case 1: combinationDices.Add(new CombinationDice() { CombinationType = CombinationDiceType.None, Value = cubes[i] }); break;
+                    case 2: combinationDices.Add(new CombinationDice() { CombinationType = CombinationDiceType.Pair, Value = cubes[i] }); break;
+                    case 3: combinationDices.Add(new CombinationDice() { CombinationType = CombinationDiceType.Three, Value = cubes[i] }); break;
+                    case 4: combinationDices.Add(new CombinationDice() { CombinationType = CombinationDiceType.Four, Value = cubes[i] }); break;
+                    case 5: combinationDices.Add(new CombinationDice() { CombinationType = CombinationDiceType.Flush, Value = cubes[i] }); break;
+                }
+            }
+            int sum = 0;
+            ///вычисляем сумму
+            ///формула такая: sum = type*10+D; где type это чило комбинации, D - старшая кость
+            CombinationDiceResult combinationDiceResult = new CombinationDiceResult();
+            if (combinationDices.Count == 5)//то есть если все дайсы оказались разные, то проверка на стрит
+            {
+                bool flag = true;
+                for (int i = 0; i < combinationDices.Count - 1; i++)
+                {
+                    if ((combinationDices[i].Value + 1) != combinationDices[i + 1].Value)//если это не стрит
+                    {
+                        flag = false;
+                        continue;//прерываем цикл
+                    }
+                }
+                if (flag)//если все же стрит
+                {
+                    sum += ((int)CombinationDiceType.Straight) * 10 + (combinationDices.Max(m => m.Value));
+                    combinationDiceResult.Sum = sum;
+                    combinationDiceResult.Message = string.Format("Стрит. Старшая кость: {0}", combinationDices.Max(m => m.Value));
+                    return combinationDiceResult;
+                }
+
+            }
+            foreach (var comb in combinationDices)
+            {
+                sum += ((int)comb.CombinationType) * 10 + comb.Value;
+                switch (comb.CombinationType)
+                {
+                    case CombinationDiceType.None: combinationDiceResult.Message += string.Format(" *{0}* ", comb.Value); break;
+                    case CombinationDiceType.Pair: combinationDiceResult.Message += string.Format(" *Пара из {0}* ", comb.Value); break;
+                    case CombinationDiceType.Three: combinationDiceResult.Message += string.Format(" *Сет из {0}* ", comb.Value); break;
+                    case CombinationDiceType.Four: combinationDiceResult.Message += string.Format(" *Карэ из {0}* ", comb.Value); break;
+                    case CombinationDiceType.Flush: combinationDiceResult.Message += string.Format(" *Флеш из {0}* ", comb.Value); break;
+                }
+            }
+            //если всего две комбинации   и   сдержит пару и сет. то это фулл-хаус, нужно будет отдельное сравнение
+            if (combinationDices.Count == 2 && combinationDices.Where(w => w.CombinationType == CombinationDiceType.Pair).FirstOrDefault() != null && combinationDices.Where(w => w.CombinationType == CombinationDiceType.Three).FirstOrDefault() != null)
+            {
+                sum += 10;
+                combinationDiceResult.Message = "Фулл-Хаус.";
+                combinationDiceResult.FullHouse = true;
+            }
+            combinationDiceResult.Sum = sum;
+
+            return combinationDiceResult;
+        }
+        public async Task GameOver(Room room)
+        {
+            User[] users = new User[2];
+            int count = 0;
+            foreach(UserInGameProcess us in room.Users)
+            {
+                users[count++] = db.Users.Include(i => i.UserClient).Include(i => i.UserClient.Friends).Where(w => w.Name == us.Name).FirstOrDefault();
+            }
+            UserClient[] userClients = new UserClient[2];//копируем обновленные данные для отправления клиенту
+            count = 0;
+            foreach(User usc in users)
+            {
+                userClients[count++] = HomeController.CloneUserClient(usc.UserClient);
+            }
+            count = 0;
+            foreach(var us in room.Users)
+            {
+                await Clients.Client(us.Id).SendAsync("GameOverReceived", userClients[count++]);
+            }
         }
     }
 }

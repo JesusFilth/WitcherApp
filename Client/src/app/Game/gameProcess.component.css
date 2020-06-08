@@ -52,9 +52,6 @@
     display: block;
 }
 .raund-number-panel{
-    /*background-image: url(../../assets/images/tree_raund.png);
-    background-size: contain;
-    background-repeat: no-repeat;*/
     width: 70%;
     height: 14%;
     margin-top: 365%;
@@ -287,12 +284,16 @@
 }
 .info-text-label{
     color: white;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: 11%;
-    width: 75%;
+    width: 76%;
+    height: 68%;
     font-family: cursive;
     text-align: center;
+    background-color: transparent;
     font-size: 1.1vw;
+    border: 0px;
+    line-height: 0.7;
 }
 .all-bet-panel{
     background-image: url(../../assets/images/gold_panel.png);

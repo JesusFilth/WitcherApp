@@ -74,7 +74,7 @@ namespace DeathDiceServer.Controllers
         {
             Console.WriteLine("ERROR BLEAT");
         }
-        UserClient CloneUserClient(UserClient userClient)
+        public static UserClient CloneUserClient(UserClient userClient)
         {
             UserClient temp = new UserClient()
             {

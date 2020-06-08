@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace DeathDiceServer.Models.Hub
 
             userPassBet.Step = enemy.Step = true;
             userPassBet.stateGame = enemy.stateGame = StateGame.none;
+            userPassBet.RollRaund = enemy.RollRaund = 0;
         }
         public void AllInBet(UserInGameProcess userAllInBet, UserInGameProcess enemy)
         {
@@ -53,6 +55,69 @@ namespace DeathDiceServer.Models.Hub
 
             userAllInBet.Step = false;
             enemy.Step = true;
+        }
+
+        public void TakeBet(UserInGameProcess winner)
+        {
+            winner.Gold += GameManager.AllBet;
+            winner.WinCount++;
+        }
+        /// <summary>
+        /// Ничья
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="enemy"></param>
+        public void Draw(UserInGameProcess user, UserInGameProcess enemy)
+        {
+            user.Gold += GameManager.AllBet / 2;
+            enemy.Gold += GameManager.AllBet / 2;
+            user.WinCount++;
+            enemy.WinCount++;
+        }
+        /// <summary>
+        /// Быстрая проверка на окончание игры
+        /// </summary>
+        /// <returns></returns>
+        public bool GameOver()
+        {
+            if (Users[0].WinCount == 2 || Users[1].WinCount == 2|| Users[0].Gold==0||Users[1].Gold==0)//если у кого то есть две победы, или кто то слил все бабло
+                return true;
+            return false;
+        }
+
+        public void Winner(UserInGameProcess user, UserInGameProcess enemy, ApplicationDBContext context)
+        {
+
+            User userWinnner = context.Users.Include(i=>i.UserClient).Where(w => w.Name == user.Name).FirstOrDefault();
+            userWinnner.UserClient.Gold = user.Gold;
+            if (user.WinCount == 2)
+            {
+                userWinnner.UserClient.WinCount++;
+                //тут изменить систему рангов, пока что просто --
+                userWinnner.UserClient.Rank--;
+            }
+            //ememy
+            User userLose = context.Users.Include(i => i.UserClient).Where(w => w.Name == enemy.Name).FirstOrDefault();
+            userLose.UserClient.Gold = enemy.Gold;
+            //в теории может быть ничья в финале, так что чекаем и этот момент
+            if(enemy.WinCount==2)
+            {
+                userLose.UserClient.WinCount++;
+                userLose.UserClient.Rank--;
+            }
+            //ранг не меняем
+            //сохроняем в базе
+            context.SaveChanges();
+        }
+        /// <summary>
+        /// получаем id победителя или null если ничья
+        /// </summary>
+        /// <returns></returns>
+        public string GetWinnerId()
+        {
+            if (Users[0].WinCount == 2 && Users[1].WinCount == 2)
+                return null;//если вдруг ничья
+            return Users.Find(f => f.WinCount == 2).Id;
         }
     }
 }

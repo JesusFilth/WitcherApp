@@ -6,6 +6,7 @@ export class ActionGameService {
   messageReceived = new EventEmitter<any>();
   rollCubesReceived = new EventEmitter<any>();
   connectionMessage = new EventEmitter<any>();
+  gameOverReceived = new EventEmitter<any>();
 
   connectionEstablished = new EventEmitter<Boolean>();
 
@@ -60,6 +61,9 @@ export class ActionGameService {
   private registerOnServerEvents(): void {
     this._hubConnection.on('MessageReceived', (data: any) => {
       this.messageReceived.emit(data);
+    });
+    this._hubConnection.on('GameOverReceived', (data: any) => {
+      this.gameOverReceived.emit(data);
     });
     this._hubConnection.on('RollCubesReceived', (data: any) => {
       this.rollCubesReceived.emit(data);
