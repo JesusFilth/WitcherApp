@@ -94,7 +94,13 @@ namespace DeathDiceServer.Models.Hub
             {
                 userWinnner.UserClient.WinCount++;
                 //тут изменить систему рангов, пока что просто --
-                userWinnner.UserClient.Rank--;
+                userWinnner.UserClient.Stars++;
+                Rank(userWinnner.UserClient);
+            }
+            else
+            {
+                userWinnner.UserClient.Stars--;
+                Rank(userWinnner.UserClient);
             }
             //ememy
             User userLose = context.Users.Include(i => i.UserClient).Where(w => w.Name == enemy.Name).FirstOrDefault();
@@ -103,7 +109,13 @@ namespace DeathDiceServer.Models.Hub
             if(enemy.WinCount==2)
             {
                 userLose.UserClient.WinCount++;
-                userLose.UserClient.Rank--;
+                userLose.UserClient.Stars++;
+                Rank(userLose.UserClient);
+            }
+            else
+            {
+                userLose.UserClient.Stars--;
+                Rank(userLose.UserClient);
             }
             //ранг не меняем
             //сохроняем в базе
@@ -118,6 +130,29 @@ namespace DeathDiceServer.Models.Hub
             if (Users[0].WinCount == 2 && Users[1].WinCount == 2)
                 return null;//если вдруг ничья
             return Users.Find(f => f.WinCount == 2).Id;
+        }
+        void Rank(UserClient user)
+        {
+            if (user.Stars == 5)//если достаточно звезд для пеерхода на новый ранг
+            {
+                if (user.Rank != 1)//если ранг не максимальный, то повышаем его
+                {
+                    user.Rank++;
+                    user.Stars = 1;
+                }
+                else
+                    user.Stars++;//если ранг максимальный
+            }
+            else if (user.Stars == -1)//сбрасываем ранг
+            {
+                if (user.Rank != 20)
+                {
+                    user.Rank--;
+                    user.Stars = 4;
+                }
+                else
+                    user.Stars = 0;
+            }
         }
     }
 }

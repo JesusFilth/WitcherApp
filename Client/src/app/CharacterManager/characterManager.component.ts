@@ -19,7 +19,7 @@ export class CharacterManager{
 
     pathAvatarImg: any = require("../../assets/images/avatar.jpg");
     pathFriendImg: any = require("../../assets/images/goblin.jpg");
-    str:string =  localStorage.getItem('key');
+    gameSearch:boolean = false;
  ///test
 
     user:UserClient = new UserClient();
@@ -31,7 +31,7 @@ export class CharacterManager{
         private gameSearchService:GameSearchService,
         private _ngZone: NgZone){
         this.user = this.router.getCurrentNavigation().extras.state;
-        
+        console.log(this.user);
         //сохронять данные пользователя при перезагурзке страницы
         if(this.user!=null){
             localStorage.setItem("user", JSON.stringify(this.user));
@@ -46,7 +46,15 @@ export class CharacterManager{
         this.subscribeToEvents();
     }
     ToGameSearch(){
+        this.gameSearch = true;
         this.gameSearchService.Send_GameSearch(this.user.name, this.user.rank);
+    }
+    exitSearchGame(){
+        this.gameSearch = false;
+        this.gameSearchService.Send_AbortGameSearch();
+    }
+    ToAbortionSearch(){
+
     }
     //service
     subscribeToEvents(){

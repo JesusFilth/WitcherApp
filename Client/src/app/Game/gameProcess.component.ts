@@ -192,11 +192,15 @@ export class GameProcessComponent{
                 console.log("Game Over");
                 console.log(data);
                 if(data.winCount>this.opponents.user.winCount){
-                    console.log("Вы победили");
+                    alert("Вы победили");
                 }
                 else{
-                    console.log("Вы Проиграли");
+                    alert("Вы Проиграли");
                 }
+                console.log("gp");
+                this.router.navigate(['/characterManager'],{
+                    state:data
+                });
             });
           });
       }

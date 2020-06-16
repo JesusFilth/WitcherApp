@@ -1,3 +1,48 @@
+.search_Window{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+    opacity: 0.8;
+    display: none;
+}
+.loading_img{
+    width: 100px;
+    animation: spin 2s linear infinite;
+    animation-play-state: running;
+}
+.loading_img_left{
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.loading_img_right{
+    float: right;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+@keyframes spin {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+    
+.exit_search_btn{
+    margin-top: 13%;
+    margin-left: 32.5%;
+    background-color: transparent;
+    border: 0px;
+}
+.search_penel{
+    display: none;
+    background-size: cover;
+    width: 745px;
+    height: 250px;
+    background-color: aqua;
+    position: absolute;
+    margin-left: 25%;
+    margin-top: 17%;
+    background-image: url(../../assets/images/search_penel_img.jpg);
+}
 .all_content{
     background-image: url(../../assets/images/BG_CM_1.jpg);
     background-repeat: no-repeat;
@@ -46,10 +91,10 @@
     height: 60px;
 }
 .rang-number{
-    padding-left: 18px;
-    padding-top: 15px;
+    padding-left: 12px;
+    padding-top: 17px;
     position: absolute;
-    font-size: x-large;
+    font-size: unset;
     font-family: fantasy;
 }
 .setting-btn{

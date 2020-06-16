@@ -12,30 +12,52 @@ namespace DeathDiceServer.Hubs
     {
         static List<GameSearchModel> gameSearchModels = new List<GameSearchModel>();
 
-        async Task SearchCheck()
+        async Task SearchCheck(GameSearchModel user)
         {
-            //алгоритм поиска
-            //пока тестовый метод
-            if (gameSearchModels.Count >= 2)
+            if (gameSearchModels.Count > 1)
             {
-                Guid id = Guid.NewGuid();
-                SearchResult searchResult = new SearchResult()
+                int plus = user.Rank;
+                int minus = user.Rank-1;
+
+                GameSearchModel opponent;
+                for (int i = 0; i < gameSearchModels.Count; i++)
                 {
-                    UserId = id,
-                    Enemy = new Enemy()
+                    opponent = gameSearchModels.Find(f => f.Rank == plus);
+                    if (opponent != null)
                     {
-                         Name = gameSearchModels[1].Name,
-                         ImgAvatarHref = "", 
-                         Rank = 20
+                        await ReturnToGame(user, opponent);
+                        continue;
                     }
-                };
-                await Clients.Client(gameSearchModels[0].Id).SendAsync("MessageGameSearch", searchResult);//to ben
-
-                searchResult.Enemy.Name = gameSearchModels[0].Name;
-
-                await Clients.Client(gameSearchModels[1].Id).SendAsync("MessageGameSearch", searchResult);//to jesus
-                //дисконект
+                    opponent = gameSearchModels.Find(f => f.Rank == minus);
+                    if (opponent != null)
+                    {
+                        await ReturnToGame(user, opponent);
+                        continue;
+                    }
+                    plus++;
+                    minus--;
+                }
             }
+        }
+        async Task ReturnToGame(GameSearchModel user, GameSearchModel enemy)
+        {
+            Guid id = Guid.NewGuid();
+            SearchResult searchResult = new SearchResult()
+            {
+                UserId = id,
+                Enemy = new Enemy()
+                {
+                    Name = enemy.Name,
+                    ImgAvatarHref = "",
+                    Rank = enemy.Rank
+                }
+            };
+            await Clients.Client(user.Id).SendAsync("MessageGameSearch", searchResult);//to user
+
+            searchResult.Enemy.Name = user.Name;
+
+            await Clients.Client(enemy.Id).SendAsync("MessageGameSearch", searchResult);//to enemy
+            //дисконект
         }
         public async Task GameSearch(string name, int rank)
         {
@@ -48,9 +70,14 @@ namespace DeathDiceServer.Hubs
                     Rank = rank,
                     Id = Context.ConnectionId
                 });
-                //await Clients.Client(Context.ConnectionId).SendAsync("MessageGameSearch", "Поиск игры");
-                await SearchCheck();
+                await SearchCheck(gameSearchModels[gameSearchModels.Count-1]);
             }
+        }
+        public void AbortGameSearch()
+        {
+            GameSearchModel user = gameSearchModels.Where(w => w.Id == Context.ConnectionId).FirstOrDefault();
+            if (user != null)
+                gameSearchModels.Remove(user);
         }
         public override async Task OnConnectedAsync()
         {

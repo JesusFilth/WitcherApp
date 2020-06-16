@@ -7,6 +7,7 @@ export class UserClient{
         public gold?:number,
         public imgAvatarHref?:string,
         public rank?:number,
+        public stars?:number,
         public friends?:Friend[]
     ){}
    

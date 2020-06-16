@@ -8,7 +8,7 @@
                     src="../../assets/images/setting.png"></button>
             <div class="rang-div">
                 <img class="img-rang" alt="rang" src="../../assets/images/rang.png">
-                <h6 class="rang-number">{{user.rank}}</h6>
+                <h6 class="rang-number">{{user.rank}}({{user.stars}})</h6>
             </div>
         </div>
         <div class="name-person">
@@ -76,6 +76,17 @@
             </div>
         </div>
     </div>
+</div>
+<div class="search_Window" [ngStyle]="{'display': gameSearch ? 'block' : 'none'}">
+    </div>
+<div class="search_penel" [ngStyle]="{'display': gameSearch ? 'block' : 'none'}">
+    <div>
+        <img class="loading_img loading_img_left" src="../../assets/images/loading_circle.png">
+        <img class="loading_img loading_img_right" src="../../assets/images/loading_circle.png">
+    </div>
+    <button class="exit_search_btn" (click)="exitSearchGame()">
+        <img class="img-reg-game-button" src="../../assets/images/exit.png">
+    </button>
 </div>
 
 <ng-template #offline>

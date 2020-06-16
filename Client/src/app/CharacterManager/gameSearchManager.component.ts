@@ -16,6 +16,9 @@ export class GameSearchService {
   Send_GameSearch(name:string, rank:number){
       this._hubConnection.invoke("GameSearch",name,rank);
   }
+  Send_AbortGameSearch(){
+    this._hubConnection.invoke("AbortGameSearch");
+  }
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
       .withUrl("https://localhost:5001/GameSearch")

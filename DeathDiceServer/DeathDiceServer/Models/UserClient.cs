@@ -13,6 +13,7 @@ namespace DeathDiceServer.Models
         public int Gold { get; set; }
         public string ImgAvatarHref { get; set; }
         public int Rank { get; set; }
+        public int Stars { get; set; }
         public List<Friend> Friends { get; set; }
 
         //public int UserId { get; set; }

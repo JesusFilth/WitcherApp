@@ -36,20 +36,21 @@ namespace DeathDiceServer.Controllers
                     ImgAvatarHref = "",
                     WinCount = 0,
                     Name = login.Name,
-                    Rank = 20
+                    Rank = 20,
+                    Stars = 0
                 }
             }) ; ;
             db.SaveChanges();
             ///
-            Friend friend = new Friend()
-            {
-                ImgHref = "",
-                Name = "Li",
-                Online = true,
-                Rank = 20,
-                UserClient = db.UserClients.Where(w => w.Id == 1).FirstOrDefault()
-            };
-            db.Friends.Add(friend);
+            //Friend friend = new Friend()
+            //{
+            //    ImgHref = "",
+            //    Name = "Li",
+            //    Online = true,
+            //    Rank = 20,
+            //    UserClient = db.UserClients.Where(w => w.Id == 1).FirstOrDefault()
+            //};
+            //db.Friends.Add(friend);
             db.SaveChanges();
             ///
             return Ok();
@@ -81,6 +82,7 @@ namespace DeathDiceServer.Controllers
                 Gold = userClient.Gold,
                 Name = userClient.Name,
                 Rank = userClient.Rank,
+                Stars = userClient.Stars,
                 ImgAvatarHref = userClient.ImgAvatarHref,
                 WinCount = userClient.WinCount,
                 Friends = new List<Friend>()
